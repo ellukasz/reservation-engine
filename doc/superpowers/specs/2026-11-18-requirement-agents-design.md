@@ -54,6 +54,7 @@ Poza zakresem: skrót `/requirement-review`, osobny agent-orkiestrator, zmiana i
 - Ewaluatorzy: `read/glob/grep` bez edycji, shellu i webu. Wyjście — maks. 5 linii w formacie `ID | WAGA | plik:linia | obserwacja`, albo `BRAK_UWAG`. `WAGA`: `KRYTYCZNE` = sprzeczność albo brak możliwości zrozumienia wymogu; `WAŻNE` = brak doprecyzowania; `INFO` = drobiazg. Bez wstępów, bez cytowania dokumentu, bez streszczania, bez pochwał i bez proponowania poprawek.
 - Lead: `edit` wyłącznie w `doc/requirements/*.proposed.md`, bez shellu i webu.
 - Do promptów przekazujemy ścieżki, nie treść dokumentów. Jedna runda ewaluacji + jedna rewizja.
+- Agenci są zwięźli: treść każdego pliku ≤ 20 linii, obserwacje ewaluatora ≤ 5 linii, podsumowanie leada 3–5 linii, bez wstępów i rozbudowanych wyjaśnień.
 
 ## 7. Ryzyka
 

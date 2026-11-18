@@ -25,6 +25,7 @@
 - `AGENTS.md` jest dziedziczony przez agentów — nie wyłączać instrukcji projektowych.
 - Język polski, zero żargonu IT, wymagania opisują „co", nie „jak".
 - Struktura `doc/requirements/` nie jest znana z góry — agenci nie zakładają numeracji ani listy plików.
+- Zwięzłość: treść każdego pliku agenta ≤ 20 linii; obserwacje ewaluatora ≤ 5 linii; podsumowanie leada 3–5 linii; bez wstępów i rozbudowanych wyjaśnień.
 
 ## Review Focus
 
