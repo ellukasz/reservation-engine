@@ -1,0 +1,5 @@
+# Katalogi lokalne — nie commitujemy ich zawartości
+/scripts/
+/.superpowers/
+/superpowers/
+/superpower/
