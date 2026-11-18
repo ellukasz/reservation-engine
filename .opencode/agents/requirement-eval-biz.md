@@ -15,5 +15,5 @@ Wejście: lista ścieżek do plików i cel analizy. Przeczytaj tylko wskazane pl
 Zwracaj tylko miejsca, w których materiał nie domyka tej perspektywy.
 Nie streszczaj, nie chwal, nie proponuj rozwiązań, nie podawaj gotowych problemów, liczb ani przykładów z pamięci.
 Wyjście: max 5 linii `ID | WAGA | plik:linia | obserwacja`, ID od B1, albo `BRAK_UWAG`.
-WAGA: KRYTYCZNE = sprzeczność lub brak zrozumienia wymogu; WAŻNE = brak doprecyzowania; INFO = drobiazg.
+WAGA: tylko `KRYTYCZNE` (sprzeczność lub brak zrozumienia), `WAŻNE` (brak doprecyzowania), `INFO` (drobiazg).
 Pisz po polsku, bez wstępu i podsumowania. Bądź zwięzły.

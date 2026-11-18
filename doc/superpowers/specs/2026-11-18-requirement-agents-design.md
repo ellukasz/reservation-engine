@@ -73,3 +73,5 @@ Test przyjęcia: jedną celowo wadliwą notatkę (sprzeczność + żargon + brak
 - każdy ewaluator zwraca maks. 5 linii w ustalonym formacie albo `BRAK_UWAG`, bez propozycji, streszczenia i pochwał;
 - przynajmniej jeden ewaluator wyłapie celową wadę — same `BRAK_UWAG` oznaczają, że trzeba poprawić prompty lub modele;
 - lead tworzy plik `.proposed.md` z poprawką, zwraca krótkie podsumowanie i nie rusza pliku docelowego.
+
+- **2026-11-18: PASS** — trzej ewaluatorzy zwrócili 5/4/5 linii w formacie `ID | WAGA | plik:linia | obserwacja`, bez propozycji i streszczeń; każdy wyłapał wsiane wady (30%/50%, „cena później", żargon). Lead zapisał `smoke-test.proposed.md`, zwrócił 5 linii podsumowania; hash źródła bez zmian. WAGA doprecyzowana po błędzie `WAWNIE`; dowody w `.superpowers/sdd/2026-11-18-requirement-agents/smoke-results.md`.
