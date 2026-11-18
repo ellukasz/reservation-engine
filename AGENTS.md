@@ -1,12 +1,14 @@
 # Kontekst projektu: Mobilny system rezerwacyjny
 
-Silnik rezerwacji dla małych obiektów noclegowych (1–20 domków, apartamentów lub pokoi). Główny użytkownik to nietechniczny właściciel zarządzający obiektem na smartfonie. Język projektu i dokumentacji: polski.
+Silnik rezerwacji dla małych obiektów noclegowych (1–20 domków, apartamentów lub pokoi). Język projektu i dokumentacji: polski.
+
+Priorytety: najpierw bezpieczna rezerwacja, potem proste i zrozumiałe korzystanie, dopiero potem dodatkowe funkcje. Interfejs nie może gubić użytkownika ani go przytłaczać.
 
 ## Żelazne zasady (obowiązują wszystkich agentów)
 
-1. **Mobile-First:** Każda funkcja musi być wygodna na ekranie telefonu.
-2. **Zero żargonu:** Zamiast pojęć typu *allotment*, *rate plan* czy *channel manager* używamy prostego języka (np. *dostępne terminy*, *cennik*, *synchronizacja z Booking*).
-3. **Dyscyplina MVP:** Odrzucamy funkcje korporacyjne i rzadkie wyjątki, jeśli komplikują codzienne użycie w 2–3 kliknięciach.
-4. **Bezpieczeństwo rezerwacji:** Ochrona przed podwójną rezerwacją (overbooking) i jasna cena końcowa dla gościa mają najwyższy priorytet.
-5. **Zasada projektowa (Pareto 80/20):** Zero zbędnych opcji hotelowych i żargonu IT. Automatyzacja powtarzalnych zadań w tle.
-6. - **Kompetencje techniczne:** Niskie. Obsługuje wszystko na smartfonie jedną ręką, zarówno wlascicel obiektow jak i goscie.
+1. **Stawiaj telefon na pierwszym miejscu:** każda funkcja działa wygodnie na ekranie telefonu.
+2. **Mów po prostu:** używaj *dostępnych terminów*, *cennika* i *synchronizacji z Booking*. Nie używaj *allotment*, *rate plan*, *channel manager* ani innego żargonu.
+3. **Trzymaj się MVP:** odrzucaj funkcje korporacyjne i rzadkie wyjątki, jeśli wymagają więcej niż 2–3 kliknięcia.
+4. **Chroń rezerwację:** nie dopuszczaj do podwójnej rezerwacji; gość zawsze widzi pełną kwotę przed wpłatą.
+5. **Mniej opcji, więcej automatyzacji:** nie dodawaj zbędnych opcji hotelowych; powtarzalne zadania wykonuj w tle.
+6. **Zakładaj niskie kompetencje techniczne:** właściciel i gość obsługują wszystko na smartfonie jedną ręką, bez wiedzy technicznej.
