@@ -10,6 +10,8 @@
 
 **Spec:** `doc/superpowers/specs/2026-11-18-agents-md-design.md`
 
+**Status:** Zrealizowane. Task 1 w commitcie `5aa3d68`; poprawki z końcowego review w kolejnym commitcie. Szczegóły decyzji w ledgerze `.superpowers/sdd/2026-11-18-agents-md-simplicity/progress.md`.
+
 ## Global Constraints
 
 - Dokładna docelowa treść `AGENTS.md` jest w bloku kodu w specu — przepisać 1:1.
@@ -17,8 +19,9 @@
 - Linia priorytetów stoi przed listą: bezpieczeństwo → proste korzystanie → dodatkowe funkcje.
 - Zdanie o interfejsie: „Interfejs nie może gubić użytkownika ani go przytłaczać."
 - Reguła 4 brzmi „Chroń rezerwację:" — bez powtórzenia „najpierw".
-- Akceptowalne jest tylko słowo „allotment", „rate plan" i „channel manager" w regule 2 jako przykłady zakazanego żargonu.
+- Akceptowalne są wyłącznie terminy *allotment*, *rate plan* i *channel manager* w regule 2 jako przykłady zakazanego żargonu.
 - Język polski, bez nowego żargonu IT.
+- Skrypt weryfikujący jest częścią repozytorium (`scripts/verify-agents-md.ps1`), z jawnym odczytem UTF-8 i BOM — działa w czystym klonie i na PowerShell 5.
 
 ## Review Focus
 
@@ -40,44 +43,28 @@
 - Consumes: dokładna treść z bloku kodu w specu.
 - Produces: `AGENTS.md` z sześcioma regułami i linią priorytetów; dziedziczą go agenci `requirement-*`.
 
-- [ ] **Step 1: Zdefiniuj test**
+- [x] **Step 1: Zdefiniuj test**
 
-Test to poniższy skrypt PowerShell. Nie zapisuj go osobno — użyj go w krokach 2 i 4.
+Testem jest skrypt w repozytorium: `scripts/verify-agents-md.ps1`. Sprawdza dokładne brzmienie siedmiu linii, brak starych błędów i liczbę reguł. Plik ma BOM i czyta `AGENTS.md` jawnie jako UTF-8.
 
+Run:
 ```powershell
-$raw = Get-Content 'AGENTS.md' -Raw
-$expected = @(
-'Priorytety: najpierw bezpieczna rezerwacja, potem proste i zrozumiałe korzystanie, dopiero potem dodatkowe funkcje. Interfejs nie może gubić użytkownika ani go przytłaczać.',
-'1. **Stawiaj telefon na pierwszym miejscu:** każda funkcja działa wygodnie na ekranie telefonu.',
-'2. **Mów po prostu:** używaj *dostępnych terminów*, *cennika* i *synchronizacji z Booking*. Nie używaj *allotment*, *rate plan*, *channel manager* ani innego żargonu.',
-'3. **Trzymaj się MVP:** odrzucaj funkcje korporacyjne i rzadkie wyjątki, jeśli wymagają więcej niż 2–3 kliknięcia.',
-'4. **Chroń rezerwację:** nie dopuszczaj do podwójnej rezerwacji; gość zawsze widzi pełną kwotę przed wpłatą.',
-'5. **Mniej opcji, więcej automatyzacji:** nie dodawaj zbędnych opcji hotelowych; powtarzalne zadania wykonuj w tle.',
-'6. **Zakładaj niskie kompetencje techniczne:** właściciel i gość obsługują wszystko na smartfonie jedną ręką, bez wiedzy technicznej.'
-)
-$fail = $false
-foreach ($line in $expected) { if (-not $raw.Contains($line)) { Write-Output "FAIL brak linii: $line"; $fail = $true } }
-foreach ($bad in @('6. -','wlascicel','goscie','Chroń rezerwację najpierw')) { if ($raw.Contains($bad)) { Write-Output "FAIL zbędny ciąg: $bad"; $fail = $true } }
-if (([regex]::Matches($raw, '(?m)^\d+\. \*\*')).Count -ne 6) { Write-Output 'FAIL liczba reguł != 6'; $fail = $true }
-if ($fail) { exit 1 }
-Write-Output 'AGENTS_MD_CHECK_PASS'
+powershell.exe -NoProfile -File C:/_lukasz/hotele/scripts/verify-agents-md.ps1
 ```
 
-- [ ] **Step 2: Uruchom test przed zmianą**
+- [x] **Step 2: Uruchom test przed zmianą**
 
-Uruchom skrypt z Kroku 1 w katalogu repo.
-Expected: FAIL — brak linii priorytetów, brak nowych reguł, obecne `6. -`, `wlascicel`, `goscie`.
+Expected: `FAIL brak linii`, `FAIL zbędny ciąg: 6. -`, `FAIL liczba reguł != 6`.
 
-- [ ] **Step 3: Podmień `AGENTS.md`**
+- [x] **Step 3: Podmień `AGENTS.md`**
 
 Zastąp całą treść pliku blokiem kodu z sekcji „Projekt zmiany" w specu. Nie zmieniaj kolejności linii ani interpunkcji.
 
-- [ ] **Step 4: Uruchom test po zmianie**
+- [x] **Step 4: Uruchom test po zmianie**
 
-Uruchom ten sam skrypt.
 Expected: `AGENTS_MD_CHECK_PASS`, zero linii `FAIL`.
 
-- [ ] **Step 5: Sprawdź, że agenci nadal przechodzą kontrolę**
+- [x] **Step 5: Sprawdź, że agenci nadal przechodzą kontrolę**
 
 Run:
 ```powershell
@@ -86,9 +73,40 @@ git status --short
 ```
 Expected: `ALL_AGENT_CHECKS_PASS`; w `git status` tylko `AGENTS.md` i dwa dokumenty projektowe.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add AGENTS.md doc/superpowers/specs/2026-11-18-agents-md-design.md doc/superpowers/plans/2026-11-18-agents-md-simplicity.md
 git commit -m "docs: simplify AGENTS.md rules"
+```
+
+---
+
+### Task 2: Poprawki z końcowego review
+
+**Files:**
+- Add: `scripts/verify-agents-md.ps1`
+- Modify: ten plan, dokument projektowy
+
+**Interfaces:**
+- Consumes: uwagi reviewera z `.superpowers/sdd/2026-11-18-agents-md-simplicity/review-343b4c8..5aa3d68.diff`.
+- Produces: test w repozytorium i spójna dokumentacja planu/specu.
+
+- [x] **Step 1: przenieś test do repozytorium**
+
+Skrypt z lokalnego workspace zapisany jako `scripts/verify-agents-md.ps1` z BOM i jawnym UTF-8.
+
+- [x] **Step 2: udowodnij, że test wykrywa regresję**
+
+Na kopii plików w katalogu tymczasowym zmieniono zdanie o interfejsie. Expected: `FAIL brak linii` i brak `AGENTS_MD_CHECK_PASS`. Uzyskano `REGRESSION_CHECK_PASS`.
+
+- [x] **Step 3: usuń niespójności dokumentów**
+
+Spec: dopuszczono hasło w regule 5. Plan: poprawiono brzmienie ograniczenia żargonu, status zadań i lokalizację testu.
+
+- [x] **Step 4: Commit**
+
+```bash
+git add scripts/verify-agents-md.ps1 doc/superpowers/plans/2026-11-18-agents-md-simplicity.md doc/superpowers/specs/2026-11-18-agents-md-design.md
+git commit -m "test: keep AGENTS.md checks in repo"
 ```

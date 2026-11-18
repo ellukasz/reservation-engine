@@ -7,7 +7,7 @@ Data: 2026-11-18
 
 ## Cel
 - Zachować wszystkie sześć treści: telefon, język, MVP, bezpieczeństwo rezerwacji, mniej opcji i automatyzacja, niskie kompetencje techniczne.
-- Jedna reguła = jedno krótkie polecenie zaczynające się od czasownika.
+- Jedna reguła = jedno krótkie polecenie; wyjątek to reguła 5, gdzie hasło „Mniej opcji, więcej automatyzacji" pełni rolę polecenia.
 - Dodać do wstępu zdanie o priorytetach i zdanie o interfejsie: bezpieczeństwo rezerwacji → proste i zrozumiałe korzystanie → dodatkowe funkcje; właściciel ani gość nie może się zgubić ani czuć przytłoczony. Agent UX dostaje wyraźną wytyczną, ale nie kosztem bezpieczeństwa.
 - Zostawić sens reguły 4 w linii priorytetów; w samej regule nie powtarzać słowa „najpierw", żeby uniknąć duplikatu.
 - Usunąć duplikaty: „żargon" w regule 2 i 5, „zbędne opcje" w 3 i 5, „jedną ręką" we wstępie i regule 6.
