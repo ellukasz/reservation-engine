@@ -1,0 +1,23 @@
+[tools]
+flutter = "3.50.1" 
+
+[tasks.dev]
+description = "Uruchamia aplikację Flutter"
+run = "flutter run"
+
+[tasks.check]
+description = "Analiza statyczna i testy Fluttera"
+run = ["dart format --output=none --set-exit-if-changed .", "flutter analyze", "flutter test"]
+
+[tasks.gen]
+description = "Generuje kod (np. freezed, riverpod, klient API)"
+run = "dart run build_runner build --delete-conflicting-outputs"
+
+[tasks.setup-skills]
+description = "Pobiera skille Fluttera, Darta i paczek do głównego .agents/skills"
+run = [
+  "dart run skills@ add https://github.com --all --agent generic",
+  "dart run skills@ add https://github.com --all --agent generic",
+  "dart run skills@ get --agent generic",
+  "powershell -Command \"if (Test-Path .agents/skills) { New-Item -ItemType Directory -Force -Path ../.agents/skills | Out-Null; Copy-Item -Path .agents/skills/* -Destination ../.agents/skills/ -Recurse -Force; Remove-Item -Path .agents -Recurse -Force }\""
+]

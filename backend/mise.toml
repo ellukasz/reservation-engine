@@ -1,0 +1,10 @@
+[tools]
+rust = "stable"
+
+[tasks.dev]
+description = "Uruchamia serwer Rust w trybie watch"
+run = "cargo run"
+
+[tasks.check]
+description = "Linter i testy Rusta"
+run = ["cargo fmt --check", "cargo clippy", "cargo test"]

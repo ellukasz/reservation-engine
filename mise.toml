@@ -1,0 +1,16 @@
+monorepo_root = true
+
+[monorepo]
+config_roots = ["backend", "frontend-owner"]
+
+[tasks.dev]
+description = "Uruchamia jednocześnie backend i frontend"
+depends = ["//backend:dev", "//frontend:dev"]
+
+[tasks.check]
+description = "Sprawdza formatowanie i testy w całym repozytorium"
+depends = ["//backend:check", "//frontend:check"]
+
+[tasks.setup-skills]
+description = "Instaluje wszystkie skille projektu w głównym katalogu .agents/skills"
+depends = ["//frontend-owner:setup-skills"]
