@@ -1,7 +1,7 @@
 ---
 description: Perspektywa właściciela obiektu i opłacalności rozwiązania
 mode: subagent
-model: opencode/longcat-2.5-free
+model: opencode/flint-40b-free#max
 steps: 6
 permissions:
   - { action: edit, resource: "*", effect: deny }

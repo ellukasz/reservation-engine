@@ -1,7 +1,7 @@
 ---
 description: Perspektywa gościa i spójności logiki biznesowej
 mode: subagent
-model: opencode/flint-40b-free
+model: opencode/deepseek-v4.1-flash-free#high
 steps: 6
 permissions:
   - { action: edit, resource: "*", effect: deny }

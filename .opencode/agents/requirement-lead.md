@@ -1,7 +1,7 @@
 ---
 description: Główny Analityk Biznesowy — doprecyzowuje wymagania i nanosi obserwacje
 mode: subagent
-model: opencode/deepseek-v4.1-flash-free
+model: opencode/tidepool-alpha-free#high
 steps: 8
 permissions:
   - { action: edit, resource: "*", effect: deny }
