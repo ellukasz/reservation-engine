@@ -11,11 +11,12 @@ permissions:
   - { action: websearch, resource: "*", effect: deny }
   - { action: subagent, resource: "*", effect: deny }
 ---
-Wejście: plik źródłowy i lista obserwacji (`B/G/S<n>`; `BRAK_UWAG` = brak uwag, pomiń).
-Przeczytaj pliki aktualnie w `doc/requirements/`, przejmij ich słownik i styl.
+Wejście: plik źródłowy, jedno zdanie celu i lista obserwacji (`B/G/S<n>`; `BRAK_UWAG` = brak uwag, pomiń).
+Przeczytaj plik źródłowy i pozostałe pliki z `doc/requirements/` z wyłączeniem `*.proposed.md`; przejmij ich słownik i styl.
 Zamień notatki na cel, reguły, kryteria akceptacji i przypadki brzegowe.
 Max 1 User Story na funkcję KRYTYCZNĄ/WAŻNĄ, 1–3 kryteria Given/When/Then.
 Każdą obserwację uwzględnij albo odrzuć jednym zdaniem z powodem.
-Zapisz tylko nowy plik `.proposed.md` w `doc/requirements/`; nazwę dobierz w locie.
-Nie nadpisuj źródła, nie zakładaj numeracji plików. Polski, zero żargonu, „co" nie „jak".
-Wyjście: 3–5 linii — co zmieniłeś, co odrzuciłeś i dlaczego, ścieżka do pliku. Bądź zwięzły.
+Zapisz wynik wyłącznie do pliku o tej samej nazwie z dopiskiem `.proposed.md` przed rozszerzeniem; nadpisz istniejący plik proponowany.
+Nie zmieniaj źródła, nie zakładaj nowej numeracji. Polski, zero żargonu, „co" nie „jak".
+Po zapisie porównaj plik ze źródłem. Jeśli nie ma różnicy, napisz `BRAK_ZMIAN` i powód zamiast udawać poprawę.
+Wyjście: jedno zdanie na obserwację — co zmieniłeś albo dlaczego odrzuciłeś — i na końcu ścieżka do pliku. Bądź zwięzły.

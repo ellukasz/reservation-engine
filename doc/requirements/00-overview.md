@@ -42,4 +42,4 @@ Poniższa lista to kierunek startowy, nie zamknięty katalog. Kolejne proste fun
 - Powiadomienia e-mail (WAŻNE): gość dostaje potwierdzenie z kwotą i terminem, właściciel powiadomienie o nowej rezerwacji.
 - Model opłat za system i warunki operatora płatności są poza zakresem tego dokumentu.
 
-Szczegóły cennika: [01-pricing.proposed.md](01-pricing.proposed.md). Plik `01-pricing.md` pozostaje bez zmian jako materiał historyczny.
+Szczegóły cennika: `01-pricing.md` (bez zmian, materiał historyczny).
