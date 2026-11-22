@@ -27,7 +27,7 @@ Zajętego terminu nie da się zarezerwować. Jeśli wpłata dotrze po godzinie i
 
 1. **Szybki start:** w kilka minut dodaje obiekt na telefonie (nazwa, adres, 1–5 zdjęć, liczba jednostek) i dostaje gotowy link do rezerwacji.
 2. **Jeden kalendarz:** widzi wszystkie terminy ze źródłem — nasz link, Booking, Airbnb albo wpis ręczny.
-3. **Wpis ręczny:** rezerwację z telefonu, zeszytu, wczasy.pl, OLX lub Facebooka zapisuje w dwóch dotknięciach; termin zamyka się także w portalach.
+3. **Wpis ręczny:** rezerwację z telefonu, zeszytu, wczasy.pl, OLX lub Facebooka zapisuje w minimalnej liczbie dotknięć; termin zamyka się także w portalach.
 4. **Cennik:** ustawia ceny całego ośrodka na jednym ekranie telefonu.
 5. **Synchronizacja:** rezerwacje z Booking i Airbnb pojawiają się w kalendarzu w kilka sekund; każda zmiana terminu idzie do portali.
 
@@ -52,9 +52,9 @@ Zajętego terminu nie da się zarezerwować. Jeśli wpłata dotrze po godzinie i
 
 ### Cennik
 
-Trzy elementy na jednym ekranie: cena za noc w środku tygodnia (`nd–czw`), cena za noc w weekend (`pt–sob`) i jeden narzut procentowy na ceny w Booking i Airbnb. Obok nich dwa ustawienia: wysokość zaliczki (10–100%, na start 30%) i minimalny czas pobytu (1–14 nocy, domyślnie 1). Zmiana cen w wybranych miesiącach to jedna dodatkowa czynność na tym samym ekranie.
+Cztery elementy na jednym ekranie: cena za noc w środku tygodnia (`nd–czw`), cena za noc w weekend (`pt–sob`) i dwa osobne narzuty procentowe — dla Booking i dla Airbnb. Obok nich dwa ustawienia: wysokość zaliczki (10–100%, na start 30%) i minimalny czas pobytu (1–14 nocy, domyślnie 1), czyli sześć pól. Zmiana cen w wybranym miesiącu to jedna dodatkowa czynność na tym samym ekranie.
 
-Gość z naszego linku widzi cenę pobytu bez narzutu, zaliczkę i resztę. Zaliczka i reszta sumują się dokładnie do ceny pobytu. Narzut dotyczy wyłącznie cen wysyłanych do portali. Szczegóły: [`01-pricing.md`](requirements/01-pricing.md).
+Gość z naszego linku widzi cenę pobytu bez narzutów, zaliczkę i resztę. Zaliczka i reszta sumują się dokładnie do ceny pobytu. Narzuty dotyczą wyłącznie cen wysyłanych do portali. Szczegóły: [`01-pricing.md`](requirements/01-pricing.md).
 
 ### Rezerwacja i zaliczka
 
@@ -73,7 +73,7 @@ Rezerwacja z naszego linku przechodzi przez stan **Oczekuje na wpłatę** (bloka
 ## 8. Czego nie ma w MVP
 
 - Konta gości, kody rabatowe, zmiana terminu przez gościa.
-- Własna cena obiektu (VIP), szybka zmiana ceny z kalendarza, obniżka na ostatnią chwilę.
+- Własna cena obiektu (VIP), szybka zmiana ceny z kalendarza, wpis obejmujący kilka miesięcy jednym zapisem, obniżka na ostatnią chwilę.
 - Osobna zaliczka dla obiektu, sezonu albo portalu; zaliczki zależne od portalu.
 - Opłaty dodatkowe (sprzątanie, zwierzęta), ceny zależne od liczby osób, rabaty za długi pobyt.
 - Święta w cenniku, ręczne przedłużanie blokady terminu, płatność gotówką online.
@@ -82,8 +82,8 @@ Rezerwacja z naszego linku przechodzi przez stan **Oczekuje na wpłatę** (bloka
 
 - **Zaliczka:** 10–100% ceny pobytu, domyślnie 30%; dotyczy wyłącznie rezerwacji z naszego linku i jest zaokrąglana w górę. Kwota trafia na konto operatora płatności wskazane przez właściciela.
 - **Synchronizacja:** gotowe połączenie z Booking i Airbnb, bez konfiguracji technicznej i własnych certyfikacji.
-- **Ceny portali:** jeden narzut na ceny w obu portalach, bez obietnicy pokrycia prowizji.
-- **Wczasy.pl:** właściciel wpisuje terminy ręcznie w dwóch dotknięciach.
+- **Ceny portali:** osobny narzut dla Booking i osobny dla Airbnb, bez obietnicy pokrycia prowizji.
+- **Wczasy.pl:** właściciel wpisuje terminy ręcznie w minimalnej liczbie kliknięć.
 - **Powiadomienia e-mail:** gość dostaje potwierdzenie z kwotą i terminem, właściciel powiadomienie o nowej rezerwacji.
 - **Model opłat za system i warunki operatora płatności** są poza zakresem dokumentacji produktu.
 
@@ -92,7 +92,7 @@ Rezerwacja z naszego linku przechodzi przez stan **Oczekuje na wpłatę** (bloka
 1. **Zaliczka w przeglądzie.** `00-overview.md` podaje stałe 30%, a cennik i ten dokument — 10–100%, domyślnie 30%. Przed startem trzeba poprawić przegląd, żeby dokumenty mówiły jednym głosem.
 2. **Operator płatności.** Wybór operatora, konto wypłat właściciela i realizacja zwrotów muszą być gotowe przed startem.
 3. **Treść e-maili.** Szablony potwierdzenia dla gościa i powiadomienia dla właściciela wymagają krótkiej akceptacji: kwota, termin, źródło, status i zasady zwrotu.
-4. **Zgoda na dodatkowe dotknięcie.** Wpis cenowy na kilka miesięcy wymaga jednego dotknięcia na każdy kolejny miesiąc; to odstępstwo od limitu 2–3 i wymaga zgody właściciela.
+4. **Potwierdzenie cen przez portale.** Przed startem trzeba ustalić, jak system potwierdza przyjęcie cen przez Booking i Airbnb oraz co robi, gdy portal ich nie potwierdzi; interfejs pokazuje ten status właścicielowi.
 5. **Reguła zwrotu.** Obecnie jeden próg: pełny zwrot przy rezygnacji najpóźniej 7 dni przed przyjazdem. Zmiana reguły wymaga decyzji przed startem.
 
 ## 11. Struktura projektu

@@ -18,7 +18,7 @@ Gość zawsze widzi pełną kwotę przed wpłatą.
 
 ## 4. Kierunek produktu — 5 funkcji na start
 
-Poniższa lista to kierunek startowy, nie zamknięty katalog. Kolejne proste funkcje można dodawać, jeśli nie łamią bezpieczeństwa rezerwacji, pełnej kwoty przed wpłatą, obsługi jedną ręką na telefonie i limitu 2–3 dotknięć. Szczegóły rozstrzyga dokument cennika.
+Poniższa lista to kierunek startowy, nie zamknięty katalog. Kolejne proste funkcje można dodawać, jeśli nie łamią bezpieczeństwa rezerwacji, pełnej kwoty przed wpłatą, obsługi jedną ręką na telefonie i limitu minimalnej liczby dotknięć. Szczegóły rozstrzyga dokument cennika.
 
 1. **Szybki start.** W kilka minut dodaję obiekt na telefonie (nazwa, adres, 1–5 zdjęć, liczba jednostek) i dostaję gotowy link do rezerwacji.
 2. **Jeden link.** Gość widzi dostępne terminy i pełną kwotę za pobyt przed wpłatą; zajętego terminu nie da się zarezerwować.
@@ -37,8 +37,8 @@ Poniższa lista to kierunek startowy, nie zamknięty katalog. Kolejne proste fun
 ## 6. Decyzje
 - Jedna stała zaliczka 30% dla wszystkich; pieniądze trafiają na konto operatora płatności wskazane przez właściciela.
 - Synchronizacja przez gotowe połączenie z Booking i Airbnb — bez konfiguracji technicznej i własnych certyfikacji.
-- Jeden narzut na ceny w portalach, bez obietnicy pokrycia prowizji obu portali.
-- Terminy z wczasy.pl właściciel wpisuje ręcznie w 2 kliknięciach.
+- Osobny narzut na ceny w Booking i osobny w Airbnb, bez obietnicy pokrycia prowizji.
+- Terminy z wczasy.pl właściciel wpisuje ręcznie w minimalnej liczbie kliknięć.
 - Powiadomienia e-mail (WAŻNE): gość dostaje potwierdzenie z kwotą i terminem, właściciel powiadomienie o nowej rezerwacji.
 - Model opłat za system i warunki operatora płatności są poza zakresem tego dokumentu.
 
