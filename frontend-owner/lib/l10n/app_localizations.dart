@@ -109,6 +109,30 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Cennik'**
   String get pricingTitle;
+
+  /// No description provided for @pricingFieldHelper.
+  ///
+  /// In pl, this message translates to:
+  /// **'Tylko cyfry, bez groszy'**
+  String get pricingFieldHelper;
+
+  /// No description provided for @pricingDecreaseMinStay.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zmniejsz minimalny pobyt o 1 noc'**
+  String get pricingDecreaseMinStay;
+
+  /// No description provided for @pricingIncreaseMinStay.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zwiększ minimalny pobyt o 1 noc'**
+  String get pricingIncreaseMinStay;
+
+  /// Liczba nocy z jednostką w poprawnej formie gramatycznej.
+  ///
+  /// In pl, this message translates to:
+  /// **'{count, plural, one{# noc} few{# noce} many{# nocy} other{# nocy}}'**
+  String pricingNightsCount(int count);
 }
 
 class _AppLocalizationsDelegate

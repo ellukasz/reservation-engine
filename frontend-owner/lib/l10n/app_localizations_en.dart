@@ -14,4 +14,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pricingTitle => 'Pricing';
+
+  @override
+  String get pricingFieldHelper => 'Digits only, no decimals';
+
+  @override
+  String get pricingDecreaseMinStay => 'Decrease minimum stay by 1 night';
+
+  @override
+  String get pricingIncreaseMinStay => 'Increase minimum stay by 1 night';
+
+  @override
+  String pricingNightsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# nights',
+      one: '# night',
+    );
+    return '$_temp0';
+  }
 }

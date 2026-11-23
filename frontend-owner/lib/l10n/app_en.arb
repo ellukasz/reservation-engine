@@ -1,5 +1,18 @@
 {
   "@@locale": "en",
   "appTitle": "Pricing",
-  "pricingTitle": "Pricing"
+  "pricingTitle": "Pricing",
+  "pricingFieldHelper": "Digits only, no decimals",
+  "pricingDecreaseMinStay": "Decrease minimum stay by 1 night",
+  "pricingIncreaseMinStay": "Increase minimum stay by 1 night",
+  "pricingNightsCount": "{count, plural, one{# night} other{# nights}}",
+  "@pricingNightsCount": {
+    "description": "Number of nights with a correctly pluralized unit.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  }
 }

@@ -1,5 +1,18 @@
 {
   "@@locale": "pl",
   "appTitle": "Cennik",
-  "pricingTitle": "Cennik"
+  "pricingTitle": "Cennik",
+  "pricingFieldHelper": "Tylko cyfry, bez groszy",
+  "pricingDecreaseMinStay": "Zmniejsz minimalny pobyt o 1 noc",
+  "pricingIncreaseMinStay": "Zwiększ minimalny pobyt o 1 noc",
+  "pricingNightsCount": "{count, plural, one{# noc} few{# noce} many{# nocy} other{# nocy}}",
+  "@pricingNightsCount": {
+    "description": "Liczba nocy z jednostką w poprawnej formie gramatycznej.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  }
 }
