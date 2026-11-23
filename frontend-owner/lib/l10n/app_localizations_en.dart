@@ -13,5 +13,5 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Pricing';
 
   @override
-  String get pricingTitle => 'Cennik';
+  String get pricingTitle => 'Pricing';
 }
