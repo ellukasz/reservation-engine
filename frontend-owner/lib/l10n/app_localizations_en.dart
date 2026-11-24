@@ -117,4 +117,59 @@ class AppLocalizationsEn extends AppLocalizations {
   ) {
     return '$month, $ownership, weekday $weekday, weekend $weekend, minimum $minimum, $action';
   }
+
+  @override
+  String pricingEntryTitle(String month) {
+    return '$month — entry';
+  }
+
+  @override
+  String get pricingEntrySubtitle => 'applies every year';
+
+  @override
+  String get pricingMinStayLabel => 'Minimum stay';
+
+  @override
+  String get pricingWeekdayFieldLabel => 'Weekday price (Sun–Thu)';
+
+  @override
+  String get pricingWeekendFieldLabel => 'Weekend price (Fri–Sat)';
+
+  @override
+  String get pricingCurrencyUnit => 'zł';
+
+  @override
+  String pricingUseResortMinimum(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count nights',
+      one: '$count night',
+    );
+    return 'Use resort minimum ($_temp0)';
+  }
+
+  @override
+  String get pricingDeleteEntry => 'Delete entry';
+
+  @override
+  String pricingDeleteConfirmTitle(String month) {
+    return 'Delete entry for $month?';
+  }
+
+  @override
+  String get pricingDeleteConfirmBody =>
+      'Prices will return to the base prices. This cannot be undone.';
+
+  @override
+  String get pricingCancel => 'Cancel';
+
+  @override
+  String get pricingDelete => 'Delete';
+
+  @override
+  String get pricingErrorPositive => 'Price must be greater than zero.';
+
+  @override
+  String get pricingErrorMaxPrice => 'Price cannot exceed 99 999 zł.';
 }

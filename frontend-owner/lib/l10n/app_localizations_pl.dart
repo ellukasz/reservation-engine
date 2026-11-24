@@ -119,4 +119,61 @@ class AppLocalizationsPl extends AppLocalizations {
   ) {
     return '$month, $ownership, tydzień $weekday, weekend $weekend, minimum $minimum, $action';
   }
+
+  @override
+  String pricingEntryTitle(String month) {
+    return '$month — wpis';
+  }
+
+  @override
+  String get pricingEntrySubtitle => 'dotyczy każdego roku';
+
+  @override
+  String get pricingMinStayLabel => 'Minimalny pobyt';
+
+  @override
+  String get pricingWeekdayFieldLabel => 'Cena nd–czw';
+
+  @override
+  String get pricingWeekendFieldLabel => 'Cena pt–sob';
+
+  @override
+  String get pricingCurrencyUnit => 'zł';
+
+  @override
+  String pricingUseResortMinimum(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count nocy',
+      many: '$count nocy',
+      few: '$count noce',
+      one: '$count noc',
+    );
+    return 'Użyj minimum ośrodka ($_temp0)';
+  }
+
+  @override
+  String get pricingDeleteEntry => 'Usuń wpis';
+
+  @override
+  String pricingDeleteConfirmTitle(String month) {
+    return 'Usunąć wpis dla $month?';
+  }
+
+  @override
+  String get pricingDeleteConfirmBody =>
+      'Ceny wrócą do bazowe. Tej czynności nie da się cofnąć.';
+
+  @override
+  String get pricingCancel => 'Anuluj';
+
+  @override
+  String get pricingDelete => 'Usuń';
+
+  @override
+  String get pricingErrorPositive => 'Cena musi być większa od zera.';
+
+  @override
+  String get pricingErrorMaxPrice => 'Cena może wynosić najwyżej 99 999 zł.';
 }

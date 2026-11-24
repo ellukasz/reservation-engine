@@ -49,5 +49,37 @@
       "minimum": {"type": "String"},
       "action": {"type": "String"}
     }
-  }
+  },
+  "pricingEntryTitle": "{month} — entry",
+  "@pricingEntryTitle": {
+    "description": "Header of the editor for one month entry.",
+    "placeholders": {
+      "month": {"type": "String"}
+    }
+  },
+  "pricingEntrySubtitle": "applies every year",
+  "pricingMinStayLabel": "Minimum stay",
+  "pricingWeekdayFieldLabel": "Weekday price (Sun–Thu)",
+  "pricingWeekendFieldLabel": "Weekend price (Fri–Sat)",
+  "pricingCurrencyUnit": "zł",
+  "pricingUseResortMinimum": "Use resort minimum ({count, plural, one{{count} night} other{{count} nights}})",
+  "@pricingUseResortMinimum": {
+    "description": "Switch controlling whether the open entry inherits the resort minimum.",
+    "placeholders": {
+      "count": {"type": "int", "example": "1"}
+    }
+  },
+  "pricingDeleteEntry": "Delete entry",
+  "pricingDeleteConfirmTitle": "Delete entry for {month}?",
+  "@pricingDeleteConfirmTitle": {
+    "description": "Title of the confirmation dialog for deleting the selected month entry.",
+    "placeholders": {
+      "month": {"type": "String"}
+    }
+  },
+  "pricingDeleteConfirmBody": "Prices will return to the base prices. This cannot be undone.",
+  "pricingCancel": "Cancel",
+  "pricingDelete": "Delete",
+  "pricingErrorPositive": "Price must be greater than zero.",
+  "pricingErrorMaxPrice": "Price cannot exceed 99 999 zł."
 }

@@ -284,6 +284,90 @@ abstract class AppLocalizations {
     String minimum,
     String action,
   );
+
+  /// Nagłówek edytora jednego wpisu miesiąca.
+  ///
+  /// In pl, this message translates to:
+  /// **'{month} — wpis'**
+  String pricingEntryTitle(String month);
+
+  /// No description provided for @pricingEntrySubtitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'dotyczy każdego roku'**
+  String get pricingEntrySubtitle;
+
+  /// No description provided for @pricingMinStayLabel.
+  ///
+  /// In pl, this message translates to:
+  /// **'Minimalny pobyt'**
+  String get pricingMinStayLabel;
+
+  /// No description provided for @pricingWeekdayFieldLabel.
+  ///
+  /// In pl, this message translates to:
+  /// **'Cena nd–czw'**
+  String get pricingWeekdayFieldLabel;
+
+  /// No description provided for @pricingWeekendFieldLabel.
+  ///
+  /// In pl, this message translates to:
+  /// **'Cena pt–sob'**
+  String get pricingWeekendFieldLabel;
+
+  /// No description provided for @pricingCurrencyUnit.
+  ///
+  /// In pl, this message translates to:
+  /// **'zł'**
+  String get pricingCurrencyUnit;
+
+  /// Przełącznik dziedziczenia minimum z ośrodka otwartego wpisu.
+  ///
+  /// In pl, this message translates to:
+  /// **'Użyj minimum ośrodka ({count, plural, one{{count} noc} few{{count} noce} many{{count} nocy} other{{count} nocy}})'**
+  String pricingUseResortMinimum(int count);
+
+  /// No description provided for @pricingDeleteEntry.
+  ///
+  /// In pl, this message translates to:
+  /// **'Usuń wpis'**
+  String get pricingDeleteEntry;
+
+  /// Tytuł potwierdzenia usunięcia wpisu dla wybranego miesiąca.
+  ///
+  /// In pl, this message translates to:
+  /// **'Usunąć wpis dla {month}?'**
+  String pricingDeleteConfirmTitle(String month);
+
+  /// No description provided for @pricingDeleteConfirmBody.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ceny wrócą do bazowe. Tej czynności nie da się cofnąć.'**
+  String get pricingDeleteConfirmBody;
+
+  /// No description provided for @pricingCancel.
+  ///
+  /// In pl, this message translates to:
+  /// **'Anuluj'**
+  String get pricingCancel;
+
+  /// No description provided for @pricingDelete.
+  ///
+  /// In pl, this message translates to:
+  /// **'Usuń'**
+  String get pricingDelete;
+
+  /// No description provided for @pricingErrorPositive.
+  ///
+  /// In pl, this message translates to:
+  /// **'Cena musi być większa od zera.'**
+  String get pricingErrorPositive;
+
+  /// No description provided for @pricingErrorMaxPrice.
+  ///
+  /// In pl, this message translates to:
+  /// **'Cena może wynosić najwyżej 99 999 zł.'**
+  String get pricingErrorMaxPrice;
 }
 
 class _AppLocalizationsDelegate

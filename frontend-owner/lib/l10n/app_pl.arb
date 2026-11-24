@@ -49,5 +49,37 @@
       "minimum": {"type": "String"},
       "action": {"type": "String"}
     }
-  }
+  },
+  "pricingEntryTitle": "{month} — wpis",
+  "@pricingEntryTitle": {
+    "description": "Nagłówek edytora jednego wpisu miesiąca.",
+    "placeholders": {
+      "month": {"type": "String"}
+    }
+  },
+  "pricingEntrySubtitle": "dotyczy każdego roku",
+  "pricingMinStayLabel": "Minimalny pobyt",
+  "pricingWeekdayFieldLabel": "Cena nd–czw",
+  "pricingWeekendFieldLabel": "Cena pt–sob",
+  "pricingCurrencyUnit": "zł",
+  "pricingUseResortMinimum": "Użyj minimum ośrodka ({count, plural, one{{count} noc} few{{count} noce} many{{count} nocy} other{{count} nocy}})",
+  "@pricingUseResortMinimum": {
+    "description": "Przełącznik dziedziczenia minimum z ośrodka otwartego wpisu.",
+    "placeholders": {
+      "count": {"type": "int", "example": "1"}
+    }
+  },
+  "pricingDeleteEntry": "Usuń wpis",
+  "pricingDeleteConfirmTitle": "Usunąć wpis dla {month}?",
+  "@pricingDeleteConfirmTitle": {
+    "description": "Tytuł potwierdzenia usunięcia wpisu dla wybranego miesiąca.",
+    "placeholders": {
+      "month": {"type": "String"}
+    }
+  },
+  "pricingDeleteConfirmBody": "Ceny wrócą do bazowe. Tej czynności nie da się cofnąć.",
+  "pricingCancel": "Anuluj",
+  "pricingDelete": "Usuń",
+  "pricingErrorPositive": "Cena musi być większa od zera.",
+  "pricingErrorMaxPrice": "Cena może wynosić najwyżej 99 999 zł."
 }
