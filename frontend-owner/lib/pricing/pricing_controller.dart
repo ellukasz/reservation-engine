@@ -197,6 +197,16 @@ class PricingController extends ChangeNotifier {
     _markOverrideChanged(const {PricingField.minNights});
   }
 
+  /// Usuwa wpis miesiąca i zamyka edytor, jeśli dotyczył tego miesiąca.
+  void deleteMonthOverride(int month) {
+    _overrides.removeWhere((entry) => entry.month == month);
+    if (_editingOverride?.month == month) {
+      _editingOverride = null;
+    }
+    _isDirty = true;
+    notifyListeners();
+  }
+
   /// Ustawia własne minimum otwartego wpisu.
   void updateOverrideMinimum(int value) {
     final editing = _editingOverride;

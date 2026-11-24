@@ -2,6 +2,101 @@
   "@@locale": "en",
   "appTitle": "Pricing",
   "pricingTitle": "Pricing",
+  "pricingSubtitle": "Entire property",
+  "pricingSectionNightly": "Nightly prices",
+  "pricingSectionPortals": "Prices on portals",
+  "pricingSectionReservation": "Booking",
+  "pricingWeekdayLabel": "Weekday night (Sun–Thu)",
+  "pricingWeekendLabel": "Weekend night (Fri–Sat)",
+  "pricingBookingIncrease": "Booking — increase price by",
+  "pricingAirbnbIncrease": "Airbnb — increase price by",
+  "pricingDepositLabel": "Deposit",
+  "pricingPercentUnit": "%",
+  "pricingWeekdaySemantic": "Weekday nightly price, in złoty",
+  "pricingWeekendSemantic": "Weekend nightly price, in złoty",
+  "pricingBookingSemantic": "Booking markup, in percent",
+  "pricingAirbnbSemantic": "Airbnb markup, in percent",
+  "pricingDepositSemantic": "Deposit, in percent",
+  "pricingMinStaySemantic": "Minimum stay, in nights",
+  "pricingPortalBooking": "Booking",
+  "pricingPortalAirbnb": "Airbnb",
+  "pricingPortalPriceIntro": "Price on {portal}:",
+  "@pricingPortalPriceIntro": {
+    "description": "Caption above the calculated portal price.",
+    "placeholders": {
+      "portal": {"type": "String"}
+    }
+  },
+  "pricingPortalUnchanged": "Price unchanged on the portal",
+  "pricingDepositExample": "For {total}: {online} online, {onsite} on site.",
+  "@pricingDepositExample": {
+    "description": "Example split of the amount for the selected deposit.",
+    "placeholders": {
+      "total": {"type": "String"},
+      "online": {"type": "String"},
+      "onsite": {"type": "String"}
+    }
+  },
+  "pricingDepositFullOnline": "Guest pays everything online",
+  "pricingSave": "Save changes",
+  "pricingSaving": "Saving…",
+  "pricingSaved": "Saved ✓",
+  "pricingLastSaved": "Last saved today at {time}.",
+  "@pricingLastSaved": {
+    "description": "Time of the last pricing save.",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "pricingMonthsAction": "Change monthly prices",
+  "pricingMonthsCollapse": "Collapse",
+  "pricingMonthsHint": "applies every year",
+  "pricingMonthsEmpty": "You don't have any own monthly prices yet. The shared price applies everywhere.",
+  "pricingDiscardTitle": "You have unsaved changes. Discard them?",
+  "pricingStay": "Stay",
+  "pricingDiscard": "Discard",
+  "pricingLoadError": "Could not load the pricing.",
+  "pricingSaveError": "Could not save. Try again.",
+  "pricingRetry": "Try again",
+  "pricingSyncSaved": "Saved. Sending prices to portals.",
+  "pricingSyncConfirmed": "{portal} — confirmed ✓",
+  "@pricingSyncConfirmed": {
+    "description": "Status of a portal that confirmed the prices.",
+    "placeholders": {
+      "portal": {"type": "String"}
+    }
+  },
+  "pricingSyncPending": "{portal} — waiting for confirmation…",
+  "@pricingSyncPending": {
+    "description": "Status of a portal that has not confirmed the prices yet.",
+    "placeholders": {
+      "portal": {"type": "String"}
+    }
+  },
+  "pricingSyncFailedRow": "{portal} — has not confirmed the prices",
+  "@pricingSyncFailedRow": {
+    "description": "Status of a portal that failed to confirm the prices.",
+    "placeholders": {
+      "portal": {"type": "String"}
+    }
+  },
+  "pricingSyncFailedBanner": "{portal} did not confirm the prices. We'll try again automatically.",
+  "@pricingSyncFailedBanner": {
+    "description": "Warning about a portal that did not confirm the prices.",
+    "placeholders": {
+      "portal": {"type": "String"}
+    }
+  },
+  "pricingSyncOffline": "No internet. We can't send prices to portals right now.",
+  "pricingSyncRetryNow": "Try now",
+  "pricingBasePricesNotice": "These are the base prices — no entry was created",
+  "pricingErrorRequired": "Enter a value.",
+  "pricingErrorPositive": "Price must be greater than zero.",
+  "pricingErrorWholeZloty": "Enter whole złoty, without decimals.",
+  "pricingErrorMaxPrice": "Price cannot exceed 99 999 zł.",
+  "pricingErrorPercentRange": "Enter a value from 0 to 100%.",
+  "pricingErrorDepositRange": "Deposit must be from 10 to 100%.",
+  "pricingErrorMinNightsRange": "Minimum stay must be from 1 to 14 nights.",
   "pricingFieldHelper": "Digits only, no decimals",
   "pricingDecreaseMinStay": "Decrease minimum stay by 1 night",
   "pricingIncreaseMinStay": "Increase minimum stay by 1 night",
@@ -79,7 +174,5 @@
   },
   "pricingDeleteConfirmBody": "Prices will return to the base prices. This cannot be undone.",
   "pricingCancel": "Cancel",
-  "pricingDelete": "Delete",
-  "pricingErrorPositive": "Price must be greater than zero.",
-  "pricingErrorMaxPrice": "Price cannot exceed 99 999 zł."
+  "pricingDelete": "Delete"
 }

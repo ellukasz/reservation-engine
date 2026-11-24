@@ -16,6 +16,177 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pricingTitle => 'Pricing';
 
   @override
+  String get pricingSubtitle => 'Entire property';
+
+  @override
+  String get pricingSectionNightly => 'Nightly prices';
+
+  @override
+  String get pricingSectionPortals => 'Prices on portals';
+
+  @override
+  String get pricingSectionReservation => 'Booking';
+
+  @override
+  String get pricingWeekdayLabel => 'Weekday night (Sun–Thu)';
+
+  @override
+  String get pricingWeekendLabel => 'Weekend night (Fri–Sat)';
+
+  @override
+  String get pricingBookingIncrease => 'Booking — increase price by';
+
+  @override
+  String get pricingAirbnbIncrease => 'Airbnb — increase price by';
+
+  @override
+  String get pricingDepositLabel => 'Deposit';
+
+  @override
+  String get pricingPercentUnit => '%';
+
+  @override
+  String get pricingWeekdaySemantic => 'Weekday nightly price, in złoty';
+
+  @override
+  String get pricingWeekendSemantic => 'Weekend nightly price, in złoty';
+
+  @override
+  String get pricingBookingSemantic => 'Booking markup, in percent';
+
+  @override
+  String get pricingAirbnbSemantic => 'Airbnb markup, in percent';
+
+  @override
+  String get pricingDepositSemantic => 'Deposit, in percent';
+
+  @override
+  String get pricingMinStaySemantic => 'Minimum stay, in nights';
+
+  @override
+  String get pricingPortalBooking => 'Booking';
+
+  @override
+  String get pricingPortalAirbnb => 'Airbnb';
+
+  @override
+  String pricingPortalPriceIntro(String portal) {
+    return 'Price on $portal:';
+  }
+
+  @override
+  String get pricingPortalUnchanged => 'Price unchanged on the portal';
+
+  @override
+  String pricingDepositExample(String total, String online, String onsite) {
+    return 'For $total: $online online, $onsite on site.';
+  }
+
+  @override
+  String get pricingDepositFullOnline => 'Guest pays everything online';
+
+  @override
+  String get pricingSave => 'Save changes';
+
+  @override
+  String get pricingSaving => 'Saving…';
+
+  @override
+  String get pricingSaved => 'Saved ✓';
+
+  @override
+  String pricingLastSaved(String time) {
+    return 'Last saved today at $time.';
+  }
+
+  @override
+  String get pricingMonthsAction => 'Change monthly prices';
+
+  @override
+  String get pricingMonthsCollapse => 'Collapse';
+
+  @override
+  String get pricingMonthsHint => 'applies every year';
+
+  @override
+  String get pricingMonthsEmpty =>
+      'You don\'t have any own monthly prices yet. The shared price applies everywhere.';
+
+  @override
+  String get pricingDiscardTitle => 'You have unsaved changes. Discard them?';
+
+  @override
+  String get pricingStay => 'Stay';
+
+  @override
+  String get pricingDiscard => 'Discard';
+
+  @override
+  String get pricingLoadError => 'Could not load the pricing.';
+
+  @override
+  String get pricingSaveError => 'Could not save. Try again.';
+
+  @override
+  String get pricingRetry => 'Try again';
+
+  @override
+  String get pricingSyncSaved => 'Saved. Sending prices to portals.';
+
+  @override
+  String pricingSyncConfirmed(String portal) {
+    return '$portal — confirmed ✓';
+  }
+
+  @override
+  String pricingSyncPending(String portal) {
+    return '$portal — waiting for confirmation…';
+  }
+
+  @override
+  String pricingSyncFailedRow(String portal) {
+    return '$portal — has not confirmed the prices';
+  }
+
+  @override
+  String pricingSyncFailedBanner(String portal) {
+    return '$portal did not confirm the prices. We\'ll try again automatically.';
+  }
+
+  @override
+  String get pricingSyncOffline =>
+      'No internet. We can\'t send prices to portals right now.';
+
+  @override
+  String get pricingSyncRetryNow => 'Try now';
+
+  @override
+  String get pricingBasePricesNotice =>
+      'These are the base prices — no entry was created';
+
+  @override
+  String get pricingErrorRequired => 'Enter a value.';
+
+  @override
+  String get pricingErrorPositive => 'Price must be greater than zero.';
+
+  @override
+  String get pricingErrorWholeZloty => 'Enter whole złoty, without decimals.';
+
+  @override
+  String get pricingErrorMaxPrice => 'Price cannot exceed 99 999 zł.';
+
+  @override
+  String get pricingErrorPercentRange => 'Enter a value from 0 to 100%.';
+
+  @override
+  String get pricingErrorDepositRange => 'Deposit must be from 10 to 100%.';
+
+  @override
+  String get pricingErrorMinNightsRange =>
+      'Minimum stay must be from 1 to 14 nights.';
+
+  @override
   String get pricingFieldHelper => 'Digits only, no decimals';
 
   @override
@@ -166,10 +337,4 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pricingDelete => 'Delete';
-
-  @override
-  String get pricingErrorPositive => 'Price must be greater than zero.';
-
-  @override
-  String get pricingErrorMaxPrice => 'Price cannot exceed 99 999 zł.';
 }

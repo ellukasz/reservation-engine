@@ -2,6 +2,101 @@
   "@@locale": "pl",
   "appTitle": "Cennik",
   "pricingTitle": "Cennik",
+  "pricingSubtitle": "Cały ośrodek",
+  "pricingSectionNightly": "Ceny za noc",
+  "pricingSectionPortals": "Ceny w portalach",
+  "pricingSectionReservation": "Rezerwacja",
+  "pricingWeekdayLabel": "Noc w tygodniu (nd–czw)",
+  "pricingWeekendLabel": "Noc w weekend (pt–sob)",
+  "pricingBookingIncrease": "Booking — podwyższ cenę o",
+  "pricingAirbnbIncrease": "Airbnb — podwyższ cenę o",
+  "pricingDepositLabel": "Zaliczka",
+  "pricingPercentUnit": "%",
+  "pricingWeekdaySemantic": "Cena za noc w tygodniu, w złotych",
+  "pricingWeekendSemantic": "Cena za noc w weekend, w złotych",
+  "pricingBookingSemantic": "Narzut na Booking, w procentach",
+  "pricingAirbnbSemantic": "Narzut na Airbnb, w procentach",
+  "pricingDepositSemantic": "Zaliczka, w procentach",
+  "pricingMinStaySemantic": "Minimalny pobyt, w nocach",
+  "pricingPortalBooking": "Booking",
+  "pricingPortalAirbnb": "Airbnb",
+  "pricingPortalPriceIntro": "Cena w {portal}:",
+  "@pricingPortalPriceIntro": {
+    "description": "Podpis nad wyliczoną ceną w portalu.",
+    "placeholders": {
+      "portal": {"type": "String"}
+    }
+  },
+  "pricingPortalUnchanged": "Cena w portalu bez zmian",
+  "pricingDepositExample": "Przy {total}: {online} online, {onsite} na miejscu.",
+  "@pricingDepositExample": {
+    "description": "Przykład podziału kwoty przy wpisanej zaliczce.",
+    "placeholders": {
+      "total": {"type": "String"},
+      "online": {"type": "String"},
+      "onsite": {"type": "String"}
+    }
+  },
+  "pricingDepositFullOnline": "Gość płaci całość online",
+  "pricingSave": "Zapisz zmiany",
+  "pricingSaving": "Zapisuję…",
+  "pricingSaved": "Zapisano ✓",
+  "pricingLastSaved": "Ostatnio zapisano dziś o {time}.",
+  "@pricingLastSaved": {
+    "description": "Godzina ostatniego zapisu cennika.",
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "pricingMonthsAction": "Zmień ceny w miesiącach",
+  "pricingMonthsCollapse": "Zwiń",
+  "pricingMonthsHint": "dotyczy każdego roku",
+  "pricingMonthsEmpty": "Nie masz jeszcze własnych cen na miesiące. Wszędzie obowiązuje cena wspólna.",
+  "pricingDiscardTitle": "Masz niezapisane zmiany. Odrzucić?",
+  "pricingStay": "Zostań",
+  "pricingDiscard": "Odrzuć",
+  "pricingLoadError": "Nie udało się wczytać cennika.",
+  "pricingSaveError": "Nie udało się zapisać. Spróbuj ponownie.",
+  "pricingRetry": "Spróbuj ponownie",
+  "pricingSyncSaved": "Zapisano. Wysyłamy ceny do portali.",
+  "pricingSyncConfirmed": "{portal} — potwierdzone ✓",
+  "@pricingSyncConfirmed": {
+    "description": "Status portalu, który potwierdził ceny.",
+    "placeholders": {
+      "portal": {"type": "String"}
+    }
+  },
+  "pricingSyncPending": "{portal} — czeka na potwierdzenie…",
+  "@pricingSyncPending": {
+    "description": "Status portalu, który jeszcze nie potwierdził cen.",
+    "placeholders": {
+      "portal": {"type": "String"}
+    }
+  },
+  "pricingSyncFailedRow": "{portal} — nie potwierdził cen",
+  "@pricingSyncFailedRow": {
+    "description": "Status portalu, który nie potwierdził cen.",
+    "placeholders": {
+      "portal": {"type": "String"}
+    }
+  },
+  "pricingSyncFailedBanner": "{portal} nie potwierdził cen. Spróbujemy ponownie automatycznie.",
+  "@pricingSyncFailedBanner": {
+    "description": "Ostrzeżenie o braku potwierdzenia z portalu.",
+    "placeholders": {
+      "portal": {"type": "String"}
+    }
+  },
+  "pricingSyncOffline": "Brak internetu. Nie możemy teraz wysłać cen do portali.",
+  "pricingSyncRetryNow": "Spróbuj teraz",
+  "pricingBasePricesNotice": "To są ceny bazowe — wpis nie został utworzony",
+  "pricingErrorRequired": "Wpisz wartość.",
+  "pricingErrorPositive": "Cena musi być większa od zera.",
+  "pricingErrorWholeZloty": "Podaj pełne złote, bez groszy.",
+  "pricingErrorMaxPrice": "Cena może wynosić najwyżej 99 999 zł.",
+  "pricingErrorPercentRange": "Podaj wartość od 0 do 100%.",
+  "pricingErrorDepositRange": "Zaliczka od 10 do 100%.",
+  "pricingErrorMinNightsRange": "Minimum od 1 do 14 nocy.",
   "pricingFieldHelper": "Tylko cyfry, bez groszy",
   "pricingDecreaseMinStay": "Zmniejsz minimalny pobyt o 1 noc",
   "pricingIncreaseMinStay": "Zwiększ minimalny pobyt o 1 noc",
@@ -79,7 +174,5 @@
   },
   "pricingDeleteConfirmBody": "Ceny wrócą do bazowych. Tej czynności nie da się cofnąć.",
   "pricingCancel": "Anuluj",
-  "pricingDelete": "Usuń",
-  "pricingErrorPositive": "Cena musi być większa od zera.",
-  "pricingErrorMaxPrice": "Cena może wynosić najwyżej 99 999 zł."
+  "pricingDelete": "Usuń"
 }

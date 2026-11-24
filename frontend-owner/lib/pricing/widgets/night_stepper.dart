@@ -10,6 +10,7 @@ class NightStepper extends StatefulWidget {
     this.min = 1,
     this.max = 14,
     this.errorText,
+    this.enabled = true,
     super.key,
   });
 
@@ -18,6 +19,7 @@ class NightStepper extends StatefulWidget {
   final int min;
   final int max;
   final String? errorText;
+  final bool enabled;
 
   @override
   State<NightStepper> createState() => _NightStepperState();
@@ -72,7 +74,9 @@ class _NightStepperState extends State<NightStepper> {
                 tooltip: decreaseLabel,
                 icon: const Icon(Icons.remove),
                 constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
-                onPressed: _value <= widget.min ? null : () => _changeBy(-1),
+                onPressed: !widget.enabled || _value <= widget.min
+                    ? null
+                    : () => _changeBy(-1),
               ),
             ),
             const SizedBox(width: 8),
@@ -92,7 +96,9 @@ class _NightStepperState extends State<NightStepper> {
                 tooltip: increaseLabel,
                 icon: const Icon(Icons.add),
                 constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
-                onPressed: _value >= widget.max ? null : () => _changeBy(1),
+                onPressed: !widget.enabled || _value >= widget.max
+                    ? null
+                    : () => _changeBy(1),
               ),
             ),
           ],

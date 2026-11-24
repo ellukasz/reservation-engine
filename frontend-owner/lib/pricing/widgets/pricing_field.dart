@@ -12,6 +12,9 @@ class PricingField extends StatefulWidget {
     required this.onChanged,
     this.errorText,
     this.focusNode,
+    this.enabled = true,
+    this.textInputAction = TextInputAction.next,
+    this.semanticLabel,
     super.key,
   });
 
@@ -21,6 +24,9 @@ class PricingField extends StatefulWidget {
   final String? errorText;
   final ValueChanged<int> onChanged;
   final FocusNode? focusNode;
+  final bool enabled;
+  final TextInputAction textInputAction;
+  final String? semanticLabel;
 
   @override
   State<PricingField> createState() => _PricingFieldState();
@@ -102,43 +108,49 @@ class _PricingFieldState extends State<PricingField> {
 
     final errorMessage = widget.errorText;
 
-    return Semantics(
-      liveRegion: true,
-      child: TextField(
-        controller: _controller,
-        focusNode: _focusNode,
-        keyboardType: TextInputType.number,
-        textInputAction: TextInputAction.next,
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-          LengthLimitingTextInputFormatter(5),
-        ],
-        onChanged: (text) => widget.onChanged(int.tryParse(text) ?? 0),
-        onTapOutside: (_) => FocusScope.of(context).unfocus(),
-        style: const TextStyle(fontSize: 16),
-        decoration: InputDecoration(
-          labelText: widget.label,
-          labelStyle: const TextStyle(fontSize: 14),
-          floatingLabelStyle: const TextStyle(fontSize: 14),
-          suffixText: widget.suffix,
-          suffixIcon: errorMessage == null
-              ? null
-              : Icon(Icons.error_outline, color: colors.error),
-          helperText: errorMessage == null ? l10n.pricingFieldHelper : null,
-          errorText: errorMessage,
-          // Komunikat może się zawijać; nie skracamy go do jednej linii.
-          errorMaxLines: 4,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 14,
-          ),
-          border: border,
-          enabledBorder: border,
-          focusedBorder: focusedBorder,
-          errorBorder: errorBorder,
-          focusedErrorBorder: errorBorder,
+    Widget field = TextField(
+      controller: _controller,
+      focusNode: _focusNode,
+      enabled: widget.enabled,
+      keyboardType: TextInputType.number,
+      textInputAction: widget.textInputAction,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(5),
+      ],
+      onChanged: (text) => widget.onChanged(int.tryParse(text) ?? 0),
+      onTapOutside: (_) => FocusScope.of(context).unfocus(),
+      style: const TextStyle(fontSize: 16),
+      decoration: InputDecoration(
+        labelText: widget.label,
+        labelStyle: const TextStyle(fontSize: 14),
+        floatingLabelStyle: const TextStyle(fontSize: 14),
+        suffixText: widget.suffix,
+        suffixIcon: errorMessage == null
+            ? null
+            : Icon(Icons.error_outline, color: colors.error),
+        helperText: errorMessage == null ? l10n.pricingFieldHelper : null,
+        errorText: errorMessage,
+        // Komunikat może się zawijać; nie skracamy go do jednej linii.
+        errorMaxLines: 4,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
         ),
+        border: border,
+        enabledBorder: border,
+        focusedBorder: focusedBorder,
+        errorBorder: errorBorder,
+        focusedErrorBorder: errorBorder,
       ),
     );
+    final semanticLabel = widget.semanticLabel;
+    if (semanticLabel != null) {
+      field = MergeSemantics(
+        child: Semantics(label: semanticLabel, child: field),
+      );
+    }
+
+    return Semantics(liveRegion: true, child: field);
   }
 }
