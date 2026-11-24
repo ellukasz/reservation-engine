@@ -174,5 +174,12 @@
   },
   "pricingDeleteConfirmBody": "Prices will return to the base prices. This cannot be undone.",
   "pricingCancel": "Cancel",
-  "pricingDelete": "Delete"
+  "pricingDelete": "Delete",
+  "pricingErrorSummary": "To fix: {count}.",
+  "@pricingErrorSummary": {
+    "description": "Number of fields to correct after a failed save.",
+    "placeholders": {
+      "count": {"type": "int", "example": "3"}
+    }
+  }
 }

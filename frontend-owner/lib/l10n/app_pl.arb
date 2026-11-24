@@ -174,5 +174,12 @@
   },
   "pricingDeleteConfirmBody": "Ceny wrócą do bazowych. Tej czynności nie da się cofnąć.",
   "pricingCancel": "Anuluj",
-  "pricingDelete": "Usuń"
+  "pricingDelete": "Usuń",
+  "pricingErrorSummary": "Do poprawy: {count}.",
+  "@pricingErrorSummary": {
+    "description": "Liczba pól do poprawienia po nieudanym zapisie.",
+    "placeholders": {
+      "count": {"type": "int", "example": "3"}
+    }
+  }
 }

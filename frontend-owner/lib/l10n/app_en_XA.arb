@@ -1,0 +1,225 @@
+{
+  "@@locale": "en_XA",
+  "appTitle": "Pricing extended",
+  "pricingTitle": "Pricing extended",
+  "pricingSubtitle": "Entire property extended",
+  "pricingSectionNightly": "Nightly prices extended",
+  "pricingSectionPortals": "Prices on portals extended",
+  "pricingSectionReservation": "Booking extended",
+  "pricingWeekdayLabel": "Weekday night (Sun–Thu) extended extended",
+  "pricingWeekendLabel": "Weekend night (Fri–Sat) extended extended",
+  "pricingBookingIncrease": "Booking — increase price by extended extended",
+  "pricingAirbnbIncrease": "Airbnb — increase price by extended extended",
+  "pricingDepositLabel": "Deposit extended",
+  "pricingPercentUnit": "% extended",
+  "pricingWeekdaySemantic": "Weekday nightly price, in złoty extended extended",
+  "pricingWeekendSemantic": "Weekend nightly price, in złoty extended extended",
+  "pricingBookingSemantic": "Booking markup, in percent extended extended",
+  "pricingAirbnbSemantic": "Airbnb markup, in percent extended extended",
+  "pricingDepositSemantic": "Deposit, in percent extended",
+  "pricingMinStaySemantic": "Minimum stay, in nights extended extended",
+  "pricingPortalBooking": "Booking extended",
+  "pricingPortalAirbnb": "Airbnb extended",
+  "pricingPortalPriceIntro": "Price on {portal}: extended",
+  "@pricingPortalPriceIntro": {
+    "description": "Caption above the calculated portal price.",
+    "placeholders": {
+      "portal": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingPortalUnchanged": "Price unchanged on the portal extended extended",
+  "pricingDepositExample": "For {total}: {online} online, {onsite} on site. extended extended extended",
+  "@pricingDepositExample": {
+    "description": "Example split of the amount for the selected deposit.",
+    "placeholders": {
+      "total": {
+        "type": "String"
+      },
+      "online": {
+        "type": "String"
+      },
+      "onsite": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingDepositFullOnline": "Guest pays everything online extended extended",
+  "pricingSave": "Save changes extended",
+  "pricingSaving": "Saving… extended",
+  "pricingSaved": "Saved ✓ extended",
+  "pricingLastSaved": "Last saved today at {time}. extended extended",
+  "@pricingLastSaved": {
+    "description": "Time of the last pricing save.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingMonthsAction": "Change monthly prices extended",
+  "pricingMonthsCollapse": "Collapse extended",
+  "pricingMonthsHint": "applies every year extended",
+  "pricingMonthsEmpty": "You don't have any own monthly prices yet. The shared price applies everywhere. extended extended extended extended",
+  "pricingDiscardTitle": "You have unsaved changes. Discard them? extended extended",
+  "pricingStay": "Stay extended",
+  "pricingDiscard": "Discard extended",
+  "pricingLoadError": "Could not load the pricing. extended extended",
+  "pricingSaveError": "Could not save. Try again. extended extended",
+  "pricingRetry": "Try again extended",
+  "pricingSyncSaved": "Saved. Sending prices to portals. extended extended",
+  "pricingSyncConfirmed": "{portal} — confirmed ✓ extended",
+  "@pricingSyncConfirmed": {
+    "description": "Status of a portal that confirmed the prices.",
+    "placeholders": {
+      "portal": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingSyncPending": "{portal} — waiting for confirmation… extended extended",
+  "@pricingSyncPending": {
+    "description": "Status of a portal that has not confirmed the prices yet.",
+    "placeholders": {
+      "portal": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingSyncFailedRow": "{portal} — has not confirmed the prices extended extended",
+  "@pricingSyncFailedRow": {
+    "description": "Status of a portal that failed to confirm the prices.",
+    "placeholders": {
+      "portal": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingSyncFailedBanner": "{portal} did not confirm the prices. We'll try again automatically. extended extended extended",
+  "@pricingSyncFailedBanner": {
+    "description": "Warning about a portal that did not confirm the prices.",
+    "placeholders": {
+      "portal": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingSyncOffline": "No internet. We can't send prices to portals right now. extended extended extended",
+  "pricingSyncRetryNow": "Try now extended",
+  "pricingBasePricesNotice": "These are the base prices — no entry was created extended extended extended",
+  "pricingErrorRequired": "Enter a value. extended",
+  "pricingErrorPositive": "Price must be greater than zero. extended extended",
+  "pricingErrorWholeZloty": "Enter whole złoty, without decimals. extended extended",
+  "pricingErrorMaxPrice": "Price cannot exceed 99 999 zł. extended extended",
+  "pricingErrorPercentRange": "Enter a value from 0 to 100%. extended extended",
+  "pricingErrorDepositRange": "Deposit must be from 10 to 100%. extended extended",
+  "pricingErrorMinNightsRange": "Minimum stay must be from 1 to 14 nights. extended extended",
+  "pricingFieldHelper": "Digits only, no decimals extended extended",
+  "pricingDecreaseMinStay": "Decrease minimum stay by 1 night extended extended",
+  "pricingIncreaseMinStay": "Increase minimum stay by 1 night extended extended",
+  "pricingNightsCount": "{count, plural, one{{count} night} other{{count} nights}} extended extended extended",
+  "@pricingNightsCount": {
+    "description": "Number of nights with a correctly pluralized unit.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "pricingLegendTitle": "Legend extended",
+  "pricingLegendCollapsedLabel": "Legend, collapsed extended",
+  "pricingLegendExpandedLabel": "Legend, expanded extended",
+  "pricingLegendExpand": "Expand ▼ extended",
+  "pricingLegendCollapse": "Collapse ▲ extended",
+  "pricingMonthsLegendWeekTitle": "weekday (Sun–Thu) extended",
+  "pricingMonthsLegendWeek": "Nights from Sunday through Thursday. extended extended",
+  "pricingMonthsLegendWeekendTitle": "weekend (Fri–Sat) extended",
+  "pricingMonthsLegendWeekend": "Nights from Friday to Saturday and from Saturday to Sunday. extended extended extended",
+  "pricingMonthsLegendOwn": "Own price — only for this month. extended extended",
+  "pricingMonthsLegendShared": "Shared price — used when the month has no own price. extended extended extended",
+  "pricingWeekdayPriceLabel": "weekday: extended",
+  "pricingWeekendPriceLabel": "weekend: extended",
+  "pricingMinStayShort": "min. extended",
+  "pricingInheritedMinStay": "same as the resort extended",
+  "pricingTileOwn": "Own extended",
+  "pricingTileShared": "Shared extended",
+  "pricingTileOwnPrice": "own price extended",
+  "pricingTileSharedPrice": "shared price extended",
+  "pricingChange": "Change extended",
+  "pricingSet": "Set extended",
+  "pricingChangeSpoken": "change extended",
+  "pricingSetSpoken": "set extended",
+  "pricingTileSemantics": "{month}, {ownership}, weekday {weekday}, weekend {weekend}, minimum {minimum}, {action} extended extended extended extended",
+  "@pricingTileSemantics": {
+    "description": "Screen reader label for a month tile.",
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "ownership": {
+        "type": "String"
+      },
+      "weekday": {
+        "type": "String"
+      },
+      "weekend": {
+        "type": "String"
+      },
+      "minimum": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingEntryTitle": "{month} — entry extended",
+  "@pricingEntryTitle": {
+    "description": "Header of the editor for one month entry.",
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingEntrySubtitle": "applies every year extended",
+  "pricingMinStayLabel": "Minimum stay extended",
+  "pricingWeekdayFieldLabel": "Weekday price (Sun–Thu) extended extended",
+  "pricingWeekendFieldLabel": "Weekend price (Fri–Sat) extended extended",
+  "pricingCurrencyUnit": "zł extended",
+  "pricingUseResortMinimum": "Use resort minimum ({count, plural, one{{count} night} other{{count} nights}}) extended extended extended extended",
+  "@pricingUseResortMinimum": {
+    "description": "Switch controlling whether the open entry inherits the resort minimum.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "pricingDeleteEntry": "Delete entry extended",
+  "pricingDeleteConfirmTitle": "Delete entry for {month}? extended extended",
+  "@pricingDeleteConfirmTitle": {
+    "description": "Title of the confirmation dialog for deleting the selected month entry.",
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingDeleteConfirmBody": "Prices will return to the base prices. This cannot be undone. extended extended extended",
+  "pricingCancel": "Cancel extended",
+  "pricingDelete": "Delete extended",
+  "pricingErrorSummary": "To fix: {count}. extended",
+  "@pricingErrorSummary": {
+    "description": "Number of fields to correct after a failed save.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  }
+}

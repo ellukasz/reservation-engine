@@ -30,6 +30,7 @@ class PricingScreen extends StatefulWidget {
 class _PricingScreenState extends State<PricingScreen> {
   static const double _contentMaxWidth = 480;
   static const Duration _savedFeedback = Duration(seconds: 2);
+  static final OrderedTraversalPolicy _focusPolicy = OrderedTraversalPolicy();
 
   final Map<form_field.PricingField, FocusNode> _focusNodes = {
     for (final field in form_field.PricingField.values)
@@ -422,236 +423,260 @@ class _PricingScreenState extends State<PricingScreen> {
                   child: SingleChildScrollView(
                     key: const PageStorageKey<String>('pricing-form'),
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Text(
-                          l10n.pricingSubtitle,
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        if (controller.loadState == PricingLoadState.loading)
-                          const Padding(
-                            padding: EdgeInsets.only(top: 12),
-                            child: SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            ),
+                    child: FocusTraversalGroup(
+                      policy: _focusPolicy,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Text(
+                            l10n.pricingSubtitle,
+                            style: const TextStyle(fontSize: 16),
                           ),
-                        if (loadFailed)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 12),
-                            child: _noticeCard(
-                              message: l10n.pricingLoadError,
-                              actionLabel: l10n.pricingRetry,
-                              onAction: () => unawaited(controller.load()),
-                            ),
-                          ),
-                        if (ready && hasSaveError)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 12),
-                            child: _noticeCard(
-                              message: l10n.pricingSaveError,
-                              actionLabel: l10n.pricingRetry,
-                              onAction: () => unawaited(_save()),
-                            ),
-                          ),
-                        if (_basePricesNotice)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 12),
-                            child: Text(
-                              l10n.pricingBasePricesNotice,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                        if (showSync)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 12),
-                            child: SyncStatusBanner(
-                              result: controller.lastSaveResult,
-                              onRetry: () => unawaited(_retryPortals()),
-                            ),
-                          ),
-                        _sectionLabel(l10n.pricingSectionNightly),
-                        _field(
-                          l10n: l10n,
-                          fieldKey: const Key('weekdayPrice'),
-                          field: form_field.PricingField.weekdayPrice,
-                          label: l10n.pricingWeekdayLabel,
-                          semanticLabel: l10n.pricingWeekdaySemantic,
-                          value: draft.weekdayPrice,
-                          suffix: l10n.pricingCurrencyUnit,
-                          enabled: ready,
-                          onChanged: controller.updateWeekdayPrice,
-                        ),
-                        const SizedBox(height: 16),
-                        _field(
-                          l10n: l10n,
-                          fieldKey: const Key('weekendPrice'),
-                          field: form_field.PricingField.weekendPrice,
-                          label: l10n.pricingWeekendLabel,
-                          semanticLabel: l10n.pricingWeekendSemantic,
-                          value: draft.weekendPrice,
-                          suffix: l10n.pricingCurrencyUnit,
-                          enabled: ready,
-                          onChanged: controller.updateWeekendPrice,
-                        ),
-                        _sectionLabel(l10n.pricingSectionPortals),
-                        _field(
-                          l10n: l10n,
-                          fieldKey: const Key('bookingMarkup'),
-                          field: form_field.PricingField.bookingMarkup,
-                          label: l10n.pricingBookingIncrease,
-                          semanticLabel: l10n.pricingBookingSemantic,
-                          value: draft.bookingMarkup,
-                          suffix: l10n.pricingPercentUnit,
-                          enabled: ready,
-                          onChanged: controller.updateBookingMarkup,
-                        ),
-                        _portalCaption(
-                          l10n: l10n,
-                          formatter: formatter,
-                          portalName: l10n.pricingPortalBooking,
-                          basePrice: draft.weekendPrice,
-                          markup: draft.bookingMarkup,
-                        ),
-                        _field(
-                          l10n: l10n,
-                          fieldKey: const Key('airbnbMarkup'),
-                          field: form_field.PricingField.airbnbMarkup,
-                          label: l10n.pricingAirbnbIncrease,
-                          semanticLabel: l10n.pricingAirbnbSemantic,
-                          value: draft.airbnbMarkup,
-                          suffix: l10n.pricingPercentUnit,
-                          enabled: ready,
-                          onChanged: controller.updateAirbnbMarkup,
-                        ),
-                        _portalCaption(
-                          l10n: l10n,
-                          formatter: formatter,
-                          portalName: l10n.pricingPortalAirbnb,
-                          basePrice: draft.weekendPrice,
-                          markup: draft.airbnbMarkup,
-                        ),
-                        _sectionLabel(l10n.pricingSectionReservation),
-                        _field(
-                          l10n: l10n,
-                          fieldKey: const Key('depositPercent'),
-                          field: form_field.PricingField.depositPercent,
-                          label: l10n.pricingDepositLabel,
-                          semanticLabel: l10n.pricingDepositSemantic,
-                          value: draft.depositPercent,
-                          suffix: l10n.pricingPercentUnit,
-                          enabled: ready,
-                          onChanged: controller.updateDepositPercent,
-                          textInputAction: TextInputAction.done,
-                        ),
-                        _depositCaption(
-                          l10n: l10n,
-                          formatter: formatter,
-                          depositPercent: draft.depositPercent,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4, bottom: 4),
-                          child: Text(
-                            l10n.pricingMinStayLabel,
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                        ),
-                        Semantics(
-                          label: l10n.pricingMinStaySemantic,
-                          child: NightStepper(
-                            key: const Key('minNights'),
-                            value: draft.minNights,
-                            enabled: ready,
-                            errorText: _errorText(
-                              l10n,
-                              controller.errors[form_field
-                                  .PricingField
-                                  .minNights],
-                            ),
-                            onChanged: controller.updateMinNights,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        OutlinedButton(
-                          onPressed: _toggleMonths,
-                          style: ButtonStyle(
-                            minimumSize: WidgetStateProperty.all(
-                              const Size(0, 48),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Flexible(child: Text(l10n.pricingMonthsAction)),
-                              const SizedBox(width: 8),
-                              Icon(
-                                _monthsExpanded
-                                    ? Icons.expand_less
-                                    : Icons.expand_more,
-                              ),
-                            ],
-                          ),
-                        ),
-                        if (_monthsExpanded) ...<Widget>[
-                          const SizedBox(height: 12),
-                          Semantics(
-                            header: true,
-                            child: Text(
-                              l10n.pricingMonthsHint,
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          // Nowa instancja przy każdym wejściu: legenda znów jest zwinięta.
-                          const LegendCard(),
-                          const SizedBox(height: 12),
-                          if (controller.overrides.isEmpty)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 12),
-                              child: Text(
-                                l10n.pricingMonthsEmpty,
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                            ),
-                          SizedBox(
-                            height: 520,
-                            child: MonthGrid(
-                              draft: draft,
-                              overrides: controller.overrides,
-                              onMonthTap: (month) =>
-                                  unawaited(_openMonth(month)),
-                            ),
-                          ),
-                          if (editing != null)
-                            Container(
-                              key: _editorKey,
-                              padding: const EdgeInsets.only(top: 16),
-                              child: MonthEntryEditor(
-                                override: editing,
-                                baseDraft: draft,
-                                isNew: isNewEntry,
-                                onChanged: (next) => _updateEntry(next),
-                                onDelete: () => controller.deleteMonthOverride(
-                                  editing.month,
+                          if (controller.loadState == PricingLoadState.loading)
+                            const Padding(
+                              padding: EdgeInsets.only(top: 12),
+                              child: SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
                                 ),
                               ),
                             ),
-                          TextButton(
+                          if (loadFailed)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: _noticeCard(
+                                message: l10n.pricingLoadError,
+                                actionLabel: l10n.pricingRetry,
+                                onAction: () => unawaited(controller.load()),
+                              ),
+                            ),
+                          if (ready && hasSaveError)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: _noticeCard(
+                                message: l10n.pricingSaveError,
+                                actionLabel: l10n.pricingRetry,
+                                onAction: () => unawaited(_save()),
+                              ),
+                            ),
+                          if (_basePricesNotice)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: Text(
+                                l10n.pricingBasePricesNotice,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          if (showSync)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: SyncStatusBanner(
+                                result: controller.lastSaveResult,
+                                onRetry: () => unawaited(_retryPortals()),
+                              ),
+                            ),
+                          if (ready && controller.errors.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: Semantics(
+                                container: true,
+                                liveRegion: true,
+                                label: l10n.pricingErrorSummary(
+                                  controller.errors.length,
+                                ),
+                                child: Text(
+                                  l10n.pricingErrorSummary(
+                                    controller.errors.length,
+                                  ),
+                                  style: TextStyle(
+                                    color: Theme.of(context).colorScheme.error,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          _sectionLabel(l10n.pricingSectionNightly),
+                          _field(
+                            l10n: l10n,
+                            fieldKey: const Key('weekdayPrice'),
+                            field: form_field.PricingField.weekdayPrice,
+                            label: l10n.pricingWeekdayLabel,
+                            semanticLabel: l10n.pricingWeekdaySemantic,
+                            value: draft.weekdayPrice,
+                            suffix: l10n.pricingCurrencyUnit,
+                            enabled: ready,
+                            onChanged: controller.updateWeekdayPrice,
+                          ),
+                          const SizedBox(height: 16),
+                          _field(
+                            l10n: l10n,
+                            fieldKey: const Key('weekendPrice'),
+                            field: form_field.PricingField.weekendPrice,
+                            label: l10n.pricingWeekendLabel,
+                            semanticLabel: l10n.pricingWeekendSemantic,
+                            value: draft.weekendPrice,
+                            suffix: l10n.pricingCurrencyUnit,
+                            enabled: ready,
+                            onChanged: controller.updateWeekendPrice,
+                          ),
+                          _sectionLabel(l10n.pricingSectionPortals),
+                          _field(
+                            l10n: l10n,
+                            fieldKey: const Key('bookingMarkup'),
+                            field: form_field.PricingField.bookingMarkup,
+                            label: l10n.pricingBookingIncrease,
+                            semanticLabel: l10n.pricingBookingSemantic,
+                            value: draft.bookingMarkup,
+                            suffix: l10n.pricingPercentUnit,
+                            enabled: ready,
+                            onChanged: controller.updateBookingMarkup,
+                          ),
+                          _portalCaption(
+                            l10n: l10n,
+                            formatter: formatter,
+                            portalName: l10n.pricingPortalBooking,
+                            basePrice: draft.weekendPrice,
+                            markup: draft.bookingMarkup,
+                          ),
+                          _field(
+                            l10n: l10n,
+                            fieldKey: const Key('airbnbMarkup'),
+                            field: form_field.PricingField.airbnbMarkup,
+                            label: l10n.pricingAirbnbIncrease,
+                            semanticLabel: l10n.pricingAirbnbSemantic,
+                            value: draft.airbnbMarkup,
+                            suffix: l10n.pricingPercentUnit,
+                            enabled: ready,
+                            onChanged: controller.updateAirbnbMarkup,
+                          ),
+                          _portalCaption(
+                            l10n: l10n,
+                            formatter: formatter,
+                            portalName: l10n.pricingPortalAirbnb,
+                            basePrice: draft.weekendPrice,
+                            markup: draft.airbnbMarkup,
+                          ),
+                          _sectionLabel(l10n.pricingSectionReservation),
+                          _field(
+                            l10n: l10n,
+                            fieldKey: const Key('depositPercent'),
+                            field: form_field.PricingField.depositPercent,
+                            label: l10n.pricingDepositLabel,
+                            semanticLabel: l10n.pricingDepositSemantic,
+                            value: draft.depositPercent,
+                            suffix: l10n.pricingPercentUnit,
+                            enabled: ready,
+                            onChanged: controller.updateDepositPercent,
+                            textInputAction: TextInputAction.done,
+                          ),
+                          _depositCaption(
+                            l10n: l10n,
+                            formatter: formatter,
+                            depositPercent: draft.depositPercent,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4, bottom: 4),
+                            child: Text(
+                              l10n.pricingMinStayLabel,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ),
+                          Semantics(
+                            label: l10n.pricingMinStaySemantic,
+                            child: NightStepper(
+                              key: const Key('minNights'),
+                              value: draft.minNights,
+                              enabled: ready,
+                              errorText: _errorText(
+                                l10n,
+                                controller.errors[form_field
+                                    .PricingField
+                                    .minNights],
+                              ),
+                              onChanged: controller.updateMinNights,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          OutlinedButton(
                             onPressed: _toggleMonths,
                             style: ButtonStyle(
                               minimumSize: WidgetStateProperty.all(
-                                const Size(48, 48),
+                                const Size(0, 48),
                               ),
                             ),
-                            child: Text(l10n.pricingMonthsCollapse),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Flexible(child: Text(l10n.pricingMonthsAction)),
+                                const SizedBox(width: 8),
+                                Icon(
+                                  _monthsExpanded
+                                      ? Icons.expand_less
+                                      : Icons.expand_more,
+                                ),
+                              ],
+                            ),
                           ),
+                          if (_monthsExpanded) ...<Widget>[
+                            const SizedBox(height: 12),
+                            Semantics(
+                              header: true,
+                              child: Text(
+                                l10n.pricingMonthsHint,
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            // Nowa instancja przy każdym wejściu: legenda znów jest zwinięta.
+                            const LegendCard(),
+                            const SizedBox(height: 12),
+                            if (controller.overrides.isEmpty)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: Text(
+                                  l10n.pricingMonthsEmpty,
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                              ),
+                            SizedBox(
+                              height: 520,
+                              child: MonthGrid(
+                                draft: draft,
+                                overrides: controller.overrides,
+                                onMonthTap: (month) =>
+                                    unawaited(_openMonth(month)),
+                              ),
+                            ),
+                            if (editing != null)
+                              Container(
+                                key: _editorKey,
+                                padding: const EdgeInsets.only(top: 16),
+                                child: MonthEntryEditor(
+                                  override: editing,
+                                  baseDraft: draft,
+                                  isNew: isNewEntry,
+                                  onChanged: (next) => _updateEntry(next),
+                                  onDelete: () => controller
+                                      .deleteMonthOverride(editing.month),
+                                ),
+                              ),
+                            TextButton(
+                              onPressed: _toggleMonths,
+                              style: ButtonStyle(
+                                minimumSize: WidgetStateProperty.all(
+                                  const Size(48, 48),
+                                ),
+                              ),
+                              child: Text(l10n.pricingMonthsCollapse),
+                            ),
+                          ],
                         ],
-                      ],
+                      ),
                     ),
                   ),
                 ),

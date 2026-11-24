@@ -340,4 +340,9 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get pricingDelete => 'Usuń';
+
+  @override
+  String pricingErrorSummary(int count) {
+    return 'Do poprawy: $count.';
+  }
 }

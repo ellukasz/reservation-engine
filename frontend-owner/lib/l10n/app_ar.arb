@@ -1,0 +1,225 @@
+{
+  "@@locale": "ar",
+  "appTitle": "Pricing",
+  "pricingTitle": "Pricing",
+  "pricingSubtitle": "Entire property",
+  "pricingSectionNightly": "Nightly prices",
+  "pricingSectionPortals": "Prices on portals",
+  "pricingSectionReservation": "Booking",
+  "pricingWeekdayLabel": "Weekday night (Sun–Thu)",
+  "pricingWeekendLabel": "Weekend night (Fri–Sat)",
+  "pricingBookingIncrease": "Booking — increase price by",
+  "pricingAirbnbIncrease": "Airbnb — increase price by",
+  "pricingDepositLabel": "Deposit",
+  "pricingPercentUnit": "%",
+  "pricingWeekdaySemantic": "Weekday nightly price, in złoty",
+  "pricingWeekendSemantic": "Weekend nightly price, in złoty",
+  "pricingBookingSemantic": "Booking markup, in percent",
+  "pricingAirbnbSemantic": "Airbnb markup, in percent",
+  "pricingDepositSemantic": "Deposit, in percent",
+  "pricingMinStaySemantic": "Minimum stay, in nights",
+  "pricingPortalBooking": "Booking",
+  "pricingPortalAirbnb": "Airbnb",
+  "pricingPortalPriceIntro": "Price on {portal}:",
+  "@pricingPortalPriceIntro": {
+    "description": "Caption above the calculated portal price.",
+    "placeholders": {
+      "portal": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingPortalUnchanged": "Price unchanged on the portal",
+  "pricingDepositExample": "For {total}: {online} online, {onsite} on site.",
+  "@pricingDepositExample": {
+    "description": "Example split of the amount for the selected deposit.",
+    "placeholders": {
+      "total": {
+        "type": "String"
+      },
+      "online": {
+        "type": "String"
+      },
+      "onsite": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingDepositFullOnline": "Guest pays everything online",
+  "pricingSave": "Save changes",
+  "pricingSaving": "Saving…",
+  "pricingSaved": "Saved ✓",
+  "pricingLastSaved": "Last saved today at {time}.",
+  "@pricingLastSaved": {
+    "description": "Time of the last pricing save.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingMonthsAction": "Change monthly prices",
+  "pricingMonthsCollapse": "Collapse",
+  "pricingMonthsHint": "applies every year",
+  "pricingMonthsEmpty": "You don't have any own monthly prices yet. The shared price applies everywhere.",
+  "pricingDiscardTitle": "You have unsaved changes. Discard them?",
+  "pricingStay": "Stay",
+  "pricingDiscard": "Discard",
+  "pricingLoadError": "Could not load the pricing.",
+  "pricingSaveError": "Could not save. Try again.",
+  "pricingRetry": "Try again",
+  "pricingSyncSaved": "Saved. Sending prices to portals.",
+  "pricingSyncConfirmed": "{portal} — confirmed ✓",
+  "@pricingSyncConfirmed": {
+    "description": "Status of a portal that confirmed the prices.",
+    "placeholders": {
+      "portal": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingSyncPending": "{portal} — waiting for confirmation…",
+  "@pricingSyncPending": {
+    "description": "Status of a portal that has not confirmed the prices yet.",
+    "placeholders": {
+      "portal": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingSyncFailedRow": "{portal} — has not confirmed the prices",
+  "@pricingSyncFailedRow": {
+    "description": "Status of a portal that failed to confirm the prices.",
+    "placeholders": {
+      "portal": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingSyncFailedBanner": "{portal} did not confirm the prices. We'll try again automatically.",
+  "@pricingSyncFailedBanner": {
+    "description": "Warning about a portal that did not confirm the prices.",
+    "placeholders": {
+      "portal": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingSyncOffline": "No internet. We can't send prices to portals right now.",
+  "pricingSyncRetryNow": "Try now",
+  "pricingBasePricesNotice": "These are the base prices — no entry was created",
+  "pricingErrorRequired": "Enter a value.",
+  "pricingErrorPositive": "Price must be greater than zero.",
+  "pricingErrorWholeZloty": "Enter whole złoty, without decimals.",
+  "pricingErrorMaxPrice": "Price cannot exceed 99 999 zł.",
+  "pricingErrorPercentRange": "Enter a value from 0 to 100%.",
+  "pricingErrorDepositRange": "Deposit must be from 10 to 100%.",
+  "pricingErrorMinNightsRange": "Minimum stay must be from 1 to 14 nights.",
+  "pricingFieldHelper": "Digits only, no decimals",
+  "pricingDecreaseMinStay": "Decrease minimum stay by 1 night",
+  "pricingIncreaseMinStay": "Increase minimum stay by 1 night",
+  "pricingNightsCount": "{count, plural, one{{count} night} other{{count} nights}}",
+  "@pricingNightsCount": {
+    "description": "Number of nights with a correctly pluralized unit.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "pricingLegendTitle": "Legend",
+  "pricingLegendCollapsedLabel": "Legend, collapsed",
+  "pricingLegendExpandedLabel": "Legend, expanded",
+  "pricingLegendExpand": "Expand ▼",
+  "pricingLegendCollapse": "Collapse ▲",
+  "pricingMonthsLegendWeekTitle": "weekday (Sun–Thu)",
+  "pricingMonthsLegendWeek": "Nights from Sunday through Thursday.",
+  "pricingMonthsLegendWeekendTitle": "weekend (Fri–Sat)",
+  "pricingMonthsLegendWeekend": "Nights from Friday to Saturday and from Saturday to Sunday.",
+  "pricingMonthsLegendOwn": "Own price — only for this month.",
+  "pricingMonthsLegendShared": "Shared price — used when the month has no own price.",
+  "pricingWeekdayPriceLabel": "weekday:",
+  "pricingWeekendPriceLabel": "weekend:",
+  "pricingMinStayShort": "min.",
+  "pricingInheritedMinStay": "same as the resort",
+  "pricingTileOwn": "Own",
+  "pricingTileShared": "Shared",
+  "pricingTileOwnPrice": "own price",
+  "pricingTileSharedPrice": "shared price",
+  "pricingChange": "Change",
+  "pricingSet": "Set",
+  "pricingChangeSpoken": "change",
+  "pricingSetSpoken": "set",
+  "pricingTileSemantics": "{month}, {ownership}, weekday {weekday}, weekend {weekend}, minimum {minimum}, {action}",
+  "@pricingTileSemantics": {
+    "description": "Screen reader label for a month tile.",
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "ownership": {
+        "type": "String"
+      },
+      "weekday": {
+        "type": "String"
+      },
+      "weekend": {
+        "type": "String"
+      },
+      "minimum": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingEntryTitle": "{month} — entry",
+  "@pricingEntryTitle": {
+    "description": "Header of the editor for one month entry.",
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingEntrySubtitle": "applies every year",
+  "pricingMinStayLabel": "Minimum stay",
+  "pricingWeekdayFieldLabel": "Weekday price (Sun–Thu)",
+  "pricingWeekendFieldLabel": "Weekend price (Fri–Sat)",
+  "pricingCurrencyUnit": "zł",
+  "pricingUseResortMinimum": "Use resort minimum ({count, plural, one{{count} night} other{{count} nights}})",
+  "@pricingUseResortMinimum": {
+    "description": "Switch controlling whether the open entry inherits the resort minimum.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "pricingDeleteEntry": "Delete entry",
+  "pricingDeleteConfirmTitle": "Delete entry for {month}?",
+  "@pricingDeleteConfirmTitle": {
+    "description": "Title of the confirmation dialog for deleting the selected month entry.",
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "pricingDeleteConfirmBody": "Prices will return to the base prices. This cannot be undone.",
+  "pricingCancel": "Cancel",
+  "pricingDelete": "Delete",
+  "pricingErrorSummary": "To fix: {count}.",
+  "@pricingErrorSummary": {
+    "description": "Number of fields to correct after a failed save.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  }
+}

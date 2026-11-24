@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_ar.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_pl.dart';
 
@@ -94,7 +95,10 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('ar', 'XB'),
     Locale('en'),
+    Locale('en', 'XA'),
     Locale('pl'),
   ];
 
@@ -662,6 +666,12 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Usuń'**
   String get pricingDelete;
+
+  /// Liczba pól do poprawienia po nieudanym zapisie.
+  ///
+  /// In pl, this message translates to:
+  /// **'Do poprawy: {count}.'**
+  String pricingErrorSummary(int count);
 }
 
 class _AppLocalizationsDelegate
@@ -675,15 +685,37 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'pl'].contains(locale.languageCode);
+      <String>['ar', 'en', 'pl'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+  // Lookup logic when language+country codes are specified.
+  switch (locale.languageCode) {
+    case 'ar':
+      {
+        switch (locale.countryCode) {
+          case 'XB':
+            return AppLocalizationsArXb();
+        }
+        break;
+      }
+    case 'en':
+      {
+        switch (locale.countryCode) {
+          case 'XA':
+            return AppLocalizationsEnXa();
+        }
+        break;
+      }
+  }
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return AppLocalizationsAr();
     case 'en':
       return AppLocalizationsEn();
     case 'pl':
