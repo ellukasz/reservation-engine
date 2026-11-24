@@ -131,8 +131,159 @@ abstract class AppLocalizations {
   /// Liczba nocy z jednostką w poprawnej formie gramatycznej.
   ///
   /// In pl, this message translates to:
-  /// **'{count, plural, one{# noc} few{# noce} many{# nocy} other{# nocy}}'**
+  /// **'{count, plural, one{{count} noc} few{{count} noce} many{{count} nocy} other{{count} nocy}}'**
   String pricingNightsCount(int count);
+
+  /// No description provided for @pricingLegendTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Legenda'**
+  String get pricingLegendTitle;
+
+  /// No description provided for @pricingLegendCollapsedLabel.
+  ///
+  /// In pl, this message translates to:
+  /// **'Legenda, zwinięta'**
+  String get pricingLegendCollapsedLabel;
+
+  /// No description provided for @pricingLegendExpandedLabel.
+  ///
+  /// In pl, this message translates to:
+  /// **'Legenda, rozwinięta'**
+  String get pricingLegendExpandedLabel;
+
+  /// No description provided for @pricingLegendExpand.
+  ///
+  /// In pl, this message translates to:
+  /// **'Rozwiń ▼'**
+  String get pricingLegendExpand;
+
+  /// No description provided for @pricingLegendCollapse.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zwiń ▲'**
+  String get pricingLegendCollapse;
+
+  /// No description provided for @pricingMonthsLegendWeekTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'tydzień (nd–czw)'**
+  String get pricingMonthsLegendWeekTitle;
+
+  /// No description provided for @pricingMonthsLegendWeek.
+  ///
+  /// In pl, this message translates to:
+  /// **'Noce od niedzieli do czwartku.'**
+  String get pricingMonthsLegendWeek;
+
+  /// No description provided for @pricingMonthsLegendWeekendTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'weekend (pt–sob)'**
+  String get pricingMonthsLegendWeekendTitle;
+
+  /// No description provided for @pricingMonthsLegendWeekend.
+  ///
+  /// In pl, this message translates to:
+  /// **'Noce z piątku na sobotę i z soboty na niedzielę.'**
+  String get pricingMonthsLegendWeekend;
+
+  /// No description provided for @pricingMonthsLegendOwn.
+  ///
+  /// In pl, this message translates to:
+  /// **'Własna cena — tylko dla tego miesiąca.'**
+  String get pricingMonthsLegendOwn;
+
+  /// No description provided for @pricingMonthsLegendShared.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wspólna — gdy miesiąc nie ma własnej ceny.'**
+  String get pricingMonthsLegendShared;
+
+  /// No description provided for @pricingWeekdayPriceLabel.
+  ///
+  /// In pl, this message translates to:
+  /// **'tydzień:'**
+  String get pricingWeekdayPriceLabel;
+
+  /// No description provided for @pricingWeekendPriceLabel.
+  ///
+  /// In pl, this message translates to:
+  /// **'weekend:'**
+  String get pricingWeekendPriceLabel;
+
+  /// No description provided for @pricingMinStayShort.
+  ///
+  /// In pl, this message translates to:
+  /// **'min.'**
+  String get pricingMinStayShort;
+
+  /// No description provided for @pricingInheritedMinStay.
+  ///
+  /// In pl, this message translates to:
+  /// **'jak w ośrodku'**
+  String get pricingInheritedMinStay;
+
+  /// No description provided for @pricingTileOwn.
+  ///
+  /// In pl, this message translates to:
+  /// **'Własna'**
+  String get pricingTileOwn;
+
+  /// No description provided for @pricingTileShared.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wspólna'**
+  String get pricingTileShared;
+
+  /// No description provided for @pricingTileOwnPrice.
+  ///
+  /// In pl, this message translates to:
+  /// **'własna cena'**
+  String get pricingTileOwnPrice;
+
+  /// No description provided for @pricingTileSharedPrice.
+  ///
+  /// In pl, this message translates to:
+  /// **'wspólna cena'**
+  String get pricingTileSharedPrice;
+
+  /// No description provided for @pricingChange.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zmień'**
+  String get pricingChange;
+
+  /// No description provided for @pricingSet.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ustaw'**
+  String get pricingSet;
+
+  /// No description provided for @pricingChangeSpoken.
+  ///
+  /// In pl, this message translates to:
+  /// **'zmień'**
+  String get pricingChangeSpoken;
+
+  /// No description provided for @pricingSetSpoken.
+  ///
+  /// In pl, this message translates to:
+  /// **'ustaw'**
+  String get pricingSetSpoken;
+
+  /// Etykieta czytnika dla kafelka miesiąca.
+  ///
+  /// In pl, this message translates to:
+  /// **'{month}, {ownership}, tydzień {weekday}, weekend {weekend}, minimum {minimum}, {action}'**
+  String pricingTileSemantics(
+    String month,
+    String ownership,
+    String weekday,
+    String weekend,
+    String minimum,
+    String action,
+  );
 }
 
 class _AppLocalizationsDelegate

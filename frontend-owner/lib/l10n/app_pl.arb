@@ -5,7 +5,7 @@
   "pricingFieldHelper": "Tylko cyfry, bez groszy",
   "pricingDecreaseMinStay": "Zmniejsz minimalny pobyt o 1 noc",
   "pricingIncreaseMinStay": "Zwiększ minimalny pobyt o 1 noc",
-  "pricingNightsCount": "{count, plural, one{# noc} few{# noce} many{# nocy} other{# nocy}}",
+  "pricingNightsCount": "{count, plural, one{{count} noc} few{{count} noce} many{{count} nocy} other{{count} nocy}}",
   "@pricingNightsCount": {
     "description": "Liczba nocy z jednostką w poprawnej formie gramatycznej.",
     "placeholders": {
@@ -13,6 +13,41 @@
         "type": "int",
         "example": "2"
       }
+    }
+  },
+  "pricingLegendTitle": "Legenda",
+  "pricingLegendCollapsedLabel": "Legenda, zwinięta",
+  "pricingLegendExpandedLabel": "Legenda, rozwinięta",
+  "pricingLegendExpand": "Rozwiń ▼",
+  "pricingLegendCollapse": "Zwiń ▲",
+  "pricingMonthsLegendWeekTitle": "tydzień (nd–czw)",
+  "pricingMonthsLegendWeek": "Noce od niedzieli do czwartku.",
+  "pricingMonthsLegendWeekendTitle": "weekend (pt–sob)",
+  "pricingMonthsLegendWeekend": "Noce z piątku na sobotę i z soboty na niedzielę.",
+  "pricingMonthsLegendOwn": "Własna cena — tylko dla tego miesiąca.",
+  "pricingMonthsLegendShared": "Wspólna — gdy miesiąc nie ma własnej ceny.",
+  "pricingWeekdayPriceLabel": "tydzień:",
+  "pricingWeekendPriceLabel": "weekend:",
+  "pricingMinStayShort": "min.",
+  "pricingInheritedMinStay": "jak w ośrodku",
+  "pricingTileOwn": "Własna",
+  "pricingTileShared": "Wspólna",
+  "pricingTileOwnPrice": "własna cena",
+  "pricingTileSharedPrice": "wspólna cena",
+  "pricingChange": "Zmień",
+  "pricingSet": "Ustaw",
+  "pricingChangeSpoken": "zmień",
+  "pricingSetSpoken": "ustaw",
+  "pricingTileSemantics": "{month}, {ownership}, tydzień {weekday}, weekend {weekend}, minimum {minimum}, {action}",
+  "@pricingTileSemantics": {
+    "description": "Etykieta czytnika dla kafelka miesiąca.",
+    "placeholders": {
+      "month": {"type": "String"},
+      "ownership": {"type": "String"},
+      "weekday": {"type": "String"},
+      "weekend": {"type": "String"},
+      "minimum": {"type": "String"},
+      "action": {"type": "String"}
     }
   }
 }

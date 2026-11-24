@@ -5,7 +5,7 @@
   "pricingFieldHelper": "Digits only, no decimals",
   "pricingDecreaseMinStay": "Decrease minimum stay by 1 night",
   "pricingIncreaseMinStay": "Increase minimum stay by 1 night",
-  "pricingNightsCount": "{count, plural, one{# night} other{# nights}}",
+  "pricingNightsCount": "{count, plural, one{{count} night} other{{count} nights}}",
   "@pricingNightsCount": {
     "description": "Number of nights with a correctly pluralized unit.",
     "placeholders": {
@@ -13,6 +13,41 @@
         "type": "int",
         "example": "2"
       }
+    }
+  },
+  "pricingLegendTitle": "Legend",
+  "pricingLegendCollapsedLabel": "Legend, collapsed",
+  "pricingLegendExpandedLabel": "Legend, expanded",
+  "pricingLegendExpand": "Expand ▼",
+  "pricingLegendCollapse": "Collapse ▲",
+  "pricingMonthsLegendWeekTitle": "weekday (Sun–Thu)",
+  "pricingMonthsLegendWeek": "Nights from Sunday through Thursday.",
+  "pricingMonthsLegendWeekendTitle": "weekend (Fri–Sat)",
+  "pricingMonthsLegendWeekend": "Nights from Friday to Saturday and from Saturday to Sunday.",
+  "pricingMonthsLegendOwn": "Own price — only for this month.",
+  "pricingMonthsLegendShared": "Shared price — used when the month has no own price.",
+  "pricingWeekdayPriceLabel": "weekday:",
+  "pricingWeekendPriceLabel": "weekend:",
+  "pricingMinStayShort": "min.",
+  "pricingInheritedMinStay": "same as the resort",
+  "pricingTileOwn": "Own",
+  "pricingTileShared": "Shared",
+  "pricingTileOwnPrice": "own price",
+  "pricingTileSharedPrice": "shared price",
+  "pricingChange": "Change",
+  "pricingSet": "Set",
+  "pricingChangeSpoken": "change",
+  "pricingSetSpoken": "set",
+  "pricingTileSemantics": "{month}, {ownership}, weekday {weekday}, weekend {weekend}, minimum {minimum}, {action}",
+  "@pricingTileSemantics": {
+    "description": "Screen reader label for a month tile.",
+    "placeholders": {
+      "month": {"type": "String"},
+      "ownership": {"type": "String"},
+      "weekday": {"type": "String"},
+      "weekend": {"type": "String"},
+      "minimum": {"type": "String"},
+      "action": {"type": "String"}
     }
   }
 }

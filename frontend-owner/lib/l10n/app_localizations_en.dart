@@ -29,9 +29,92 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# nights',
-      one: '# night',
+      other: '$count nights',
+      one: '$count night',
     );
     return '$_temp0';
+  }
+
+  @override
+  String get pricingLegendTitle => 'Legend';
+
+  @override
+  String get pricingLegendCollapsedLabel => 'Legend, collapsed';
+
+  @override
+  String get pricingLegendExpandedLabel => 'Legend, expanded';
+
+  @override
+  String get pricingLegendExpand => 'Expand ▼';
+
+  @override
+  String get pricingLegendCollapse => 'Collapse ▲';
+
+  @override
+  String get pricingMonthsLegendWeekTitle => 'weekday (Sun–Thu)';
+
+  @override
+  String get pricingMonthsLegendWeek => 'Nights from Sunday through Thursday.';
+
+  @override
+  String get pricingMonthsLegendWeekendTitle => 'weekend (Fri–Sat)';
+
+  @override
+  String get pricingMonthsLegendWeekend =>
+      'Nights from Friday to Saturday and from Saturday to Sunday.';
+
+  @override
+  String get pricingMonthsLegendOwn => 'Own price — only for this month.';
+
+  @override
+  String get pricingMonthsLegendShared =>
+      'Shared price — used when the month has no own price.';
+
+  @override
+  String get pricingWeekdayPriceLabel => 'weekday:';
+
+  @override
+  String get pricingWeekendPriceLabel => 'weekend:';
+
+  @override
+  String get pricingMinStayShort => 'min.';
+
+  @override
+  String get pricingInheritedMinStay => 'same as the resort';
+
+  @override
+  String get pricingTileOwn => 'Own';
+
+  @override
+  String get pricingTileShared => 'Shared';
+
+  @override
+  String get pricingTileOwnPrice => 'own price';
+
+  @override
+  String get pricingTileSharedPrice => 'shared price';
+
+  @override
+  String get pricingChange => 'Change';
+
+  @override
+  String get pricingSet => 'Set';
+
+  @override
+  String get pricingChangeSpoken => 'change';
+
+  @override
+  String get pricingSetSpoken => 'set';
+
+  @override
+  String pricingTileSemantics(
+    String month,
+    String ownership,
+    String weekday,
+    String weekend,
+    String minimum,
+    String action,
+  ) {
+    return '$month, $ownership, weekday $weekday, weekend $weekend, minimum $minimum, $action';
   }
 }

@@ -25,3 +25,19 @@ AppLocalizations resolveAppLocalizations(BuildContext context) {
   }
   return lookupAppLocalizations(const Locale('en'));
 }
+
+/// Zwraca locale używany do formatowania dat i kwot.
+///
+/// W izolowanym teście widgetu nie ma delegata [AppLocalizations], więc
+/// formatowanie korzysta z locale'u platformy — tak samo jak teksty
+/// zwracane przez [resolveAppLocalizations].
+Locale resolveLocale(BuildContext context) {
+  final fromDelegate = Localizations.of<AppLocalizations>(
+    context,
+    AppLocalizations,
+  );
+  if (fromDelegate != null) {
+    return Localizations.localeOf(context);
+  }
+  return WidgetsBinding.instance.platformDispatcher.locale;
+}
