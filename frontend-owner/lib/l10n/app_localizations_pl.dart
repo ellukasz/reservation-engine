@@ -163,7 +163,7 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get pricingDeleteConfirmBody =>
-      'Ceny wrócą do bazowe. Tej czynności nie da się cofnąć.';
+      'Ceny wrócą do bazowych. Tej czynności nie da się cofnąć.';
 
   @override
   String get pricingCancel => 'Anuluj';

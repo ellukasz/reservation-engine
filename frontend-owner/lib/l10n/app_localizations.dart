@@ -342,7 +342,7 @@ abstract class AppLocalizations {
   /// No description provided for @pricingDeleteConfirmBody.
   ///
   /// In pl, this message translates to:
-  /// **'Ceny wrócą do bazowe. Tej czynności nie da się cofnąć.'**
+  /// **'Ceny wrócą do bazowych. Tej czynności nie da się cofnąć.'**
   String get pricingDeleteConfirmBody;
 
   /// No description provided for @pricingCancel.

@@ -212,7 +212,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Usunąć wpis dla lipca?'), findsOneWidget);
     expect(
-      find.text('Ceny wrócą do bazowe. Tej czynności nie da się cofnąć.'),
+      find.text('Ceny wrócą do bazowych. Tej czynności nie da się cofnąć.'),
       findsOneWidget,
     );
     expect(find.text('Anuluj'), findsOneWidget);

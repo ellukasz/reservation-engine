@@ -77,7 +77,7 @@
       "month": {"type": "String"}
     }
   },
-  "pricingDeleteConfirmBody": "Ceny wrócą do bazowe. Tej czynności nie da się cofnąć.",
+  "pricingDeleteConfirmBody": "Ceny wrócą do bazowych. Tej czynności nie da się cofnąć.",
   "pricingCancel": "Anuluj",
   "pricingDelete": "Usuń",
   "pricingErrorPositive": "Cena musi być większa od zera.",
