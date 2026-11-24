@@ -46,7 +46,10 @@ class PricingController extends ChangeNotifier {
   SaveResult? _lastSaveResult;
   Object? _loadError;
   Object? _saveError;
-  Map<PricingField, PricingError> _errors = {};
+  final Map<PricingField, PricingError> _draftErrors = {};
+  final Map<PricingField, PricingError> _overrideErrors = {};
+  final Set<PricingField> _emptyDraftFields = <PricingField>{};
+  final Set<PricingField> _emptyOverrideFields = <PricingField>{};
 
   /// Stan wczytywania cennika.
   PricingLoadState get loadState => _loadState;
@@ -75,8 +78,21 @@ class PricingController extends ChangeNotifier {
   /// Błąd zapisu cennika lub `null` po udanym zapisie.
   Object? get saveError => _saveError;
 
-  /// Błędy walidacji kluczowane polem formularza.
-  Map<PricingField, PricingError> get errors => Map.unmodifiable(_errors);
+  /// Wszystkie błędy walidacji kluczowane polem formularza.
+  Map<PricingField, PricingError> get errors => Map.unmodifiable(
+    <PricingField, PricingError>{..._draftErrors, ..._overrideErrors},
+  );
+
+  /// Błędy pól głównych — nie obejmują otwartego wpisu miesiąca.
+  Map<PricingField, PricingError> get draftErrors =>
+      Map.unmodifiable(_draftErrors);
+
+  /// Puste pola głównego formularza.
+  Set<PricingField> get emptyDraftFields => Set.unmodifiable(_emptyDraftFields);
+
+  /// Puste ceny otwartego wpisu miesiąca.
+  Set<PricingField> get emptyOverrideFields =>
+      Set.unmodifiable(_emptyOverrideFields);
 
   /// Czy otwarty wpis ma same wartości bazowe i dziedziczone minimum.
   ///
@@ -103,7 +119,10 @@ class PricingController extends ChangeNotifier {
       _overrides = List<MonthOverride>.from(snapshot.overrides);
       _editingOverride = null;
       _isDirty = false;
-      _errors = {};
+      _draftErrors.clear();
+      _overrideErrors.clear();
+      _emptyDraftFields.clear();
+      _emptyOverrideFields.clear();
       _saveError = null;
       _loadState = PricingLoadState.ready;
     } catch (error) {
@@ -150,6 +169,35 @@ class PricingController extends ChangeNotifier {
     _markDraftChanged(PricingField.minNights);
   }
 
+  /// Oznacza pole główne jako puste lub wypełnione.
+  ///
+  /// Puste pole dostaje błąd wymagania natychmiast — nie może zostać
+  /// zinterpretowane jako zero.
+  void setFieldEmpty(PricingField field, bool isEmpty) {
+    final wasEmpty = _emptyDraftFields.contains(field);
+    if (isEmpty == wasEmpty) return;
+
+    if (isEmpty) {
+      _emptyDraftFields.add(field);
+      _draftErrors[field] = PricingError.required;
+    } else {
+      _emptyDraftFields.remove(field);
+      _draftErrors.remove(field);
+    }
+    _isDirty = true;
+    notifyListeners();
+  }
+
+  /// Sprawdza jedno pole główne po opuszczeniu przez użytkownika.
+  void validateField(PricingField field) {
+    final error = PricingValidator.validateDraft(
+      _draft,
+      emptyFields: _emptyDraftFields,
+    )[field];
+    _applyError(_draftErrors, field, error);
+    notifyListeners();
+  }
+
   /// Otwiera edytor wpisu dla [month], używając istniejącego wpisu.
   void openMonth(int month) {
     final existing = _overrides.where((entry) => entry.month == month);
@@ -166,6 +214,8 @@ class PricingController extends ChangeNotifier {
   /// Zamyka edytor wpisu, odrzucając jego niezapisane zmiany.
   void closeMonth() {
     _editingOverride = null;
+    _emptyOverrideFields.clear();
+    _overrideErrors.clear();
     notifyListeners();
   }
 
@@ -216,6 +266,42 @@ class PricingController extends ChangeNotifier {
     _markOverrideChanged(const {PricingField.minNights});
   }
 
+  /// Oznacza cenę otwartego wpisu jako pustą lub wypełnioną.
+  void setOverridePriceEmpty(PricingField field, bool isEmpty) {
+    final editing = _editingOverride;
+    if (editing == null) return;
+    if (field != PricingField.weekdayPrice &&
+        field != PricingField.weekendPrice) {
+      return;
+    }
+
+    final wasEmpty = _emptyOverrideFields.contains(field);
+    if (isEmpty == wasEmpty) return;
+
+    if (isEmpty) {
+      _emptyOverrideFields.add(field);
+      _overrideErrors[field] = PricingError.required;
+    } else {
+      _emptyOverrideFields.remove(field);
+      _overrideErrors.remove(field);
+    }
+    _isDirty = true;
+    notifyListeners();
+  }
+
+  /// Sprawdza cenę otwartego wpisu po opuszczeniu pola.
+  void validateOverrideField(PricingField field) {
+    final editing = _editingOverride;
+    if (editing == null) return;
+
+    final error = PricingValidator.validateOverride(
+      editing,
+      emptyFields: _emptyOverrideFields,
+    )[field];
+    _applyError(_overrideErrors, field, error);
+    notifyListeners();
+  }
+
   /// Zapisuje formularz razem z otwartym wpisem.
   ///
   /// Zwraca `false`, gdy cennik nie jest gotowy, zapis już trwa, walidacja
@@ -230,18 +316,30 @@ class PricingController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final errors = PricingValidator.validateDraft(_draft);
+      _draftErrors
+        ..clear()
+        ..addAll(
+          PricingValidator.validateDraft(
+            _draft,
+            emptyFields: _emptyDraftFields,
+          ),
+        );
+      _overrideErrors.clear();
       final editing = _editingOverride;
       if (editing != null) {
-        errors.addAll(PricingValidator.validateOverride(editing));
+        _overrideErrors.addAll(
+          PricingValidator.validateOverride(
+            editing,
+            emptyFields: _emptyOverrideFields,
+          ),
+        );
         final minimum = editing.minimumNights;
         if (minimum != null &&
             (minimum < _minOverrideNights || minimum > _maxOverrideNights)) {
-          errors[PricingField.minNights] = PricingError.minNightsRange;
+          _overrideErrors[PricingField.minNights] = PricingError.minNightsRange;
         }
       }
-      _errors = errors;
-      if (errors.isNotEmpty) return false;
+      if (_draftErrors.isNotEmpty || _overrideErrors.isNotEmpty) return false;
 
       final nextOverrides = List<MonthOverride>.from(_overrides);
       if (editing != null) {
@@ -266,6 +364,8 @@ class PricingController extends ChangeNotifier {
       _overrides = List<MonthOverride>.from(nextOverrides);
       _lastSaveResult = result;
       _isDirty = false;
+      _emptyDraftFields.clear();
+      _emptyOverrideFields.clear();
       return true;
     } catch (error) {
       _saveError = error;
@@ -303,20 +403,37 @@ class PricingController extends ChangeNotifier {
     _overrides = List<MonthOverride>.from(_savedOverrides);
     _editingOverride = null;
     _isDirty = false;
-    _errors = {};
+    _draftErrors.clear();
+    _overrideErrors.clear();
+    _emptyDraftFields.clear();
+    _emptyOverrideFields.clear();
     _saveError = null;
     notifyListeners();
   }
 
   void _markDraftChanged(PricingField field) {
     _isDirty = true;
-    _errors.remove(field);
+    // Błąd znika po poprawieniu wartości; ponowną walidację robi opuszczenie
+    // pola albo próba zapisu. Puste pole obsługuje setFieldEmpty.
+    _draftErrors.remove(field);
     notifyListeners();
   }
 
   void _markOverrideChanged(Set<PricingField> fields) {
     _isDirty = true;
-    _errors.removeWhere((field, _) => fields.contains(field));
+    _overrideErrors.removeWhere((field, _) => fields.contains(field));
     notifyListeners();
+  }
+
+  void _applyError(
+    Map<PricingField, PricingError> errors,
+    PricingField field,
+    PricingError? error,
+  ) {
+    if (error == null) {
+      errors.remove(field);
+    } else {
+      errors[field] = error;
+    }
   }
 }

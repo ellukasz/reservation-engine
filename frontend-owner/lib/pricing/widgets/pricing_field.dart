@@ -12,6 +12,7 @@ class PricingField extends StatefulWidget {
     required this.onChanged,
     this.errorText,
     this.focusNode,
+    this.onEmptyChanged,
     this.enabled = true,
     this.textInputAction = TextInputAction.next,
     this.semanticLabel,
@@ -23,6 +24,9 @@ class PricingField extends StatefulWidget {
   final String suffix;
   final String? errorText;
   final ValueChanged<int> onChanged;
+
+  /// Informuje o pustym wpisie; liczbowy [onChanged] dostaje wtedy `0`.
+  final ValueChanged<bool>? onEmptyChanged;
   final FocusNode? focusNode;
   final bool enabled;
   final TextInputAction textInputAction;
@@ -38,10 +42,14 @@ class _PricingFieldState extends State<PricingField> {
   );
   late FocusNode _focusNode;
   late bool _ownsFocusNode;
+  late int _lastValue;
+  int? _expectedInputValue;
+  bool _isEmptyInput = false;
 
   @override
   void initState() {
     super.initState();
+    _lastValue = widget.value;
     _ownsFocusNode = widget.focusNode == null;
     _focusNode = widget.focusNode ?? FocusNode();
     _focusNode.addListener(_selectAllOnFocus);
@@ -61,7 +69,15 @@ class _PricingFieldState extends State<PricingField> {
       _focusNode.addListener(_selectAllOnFocus);
     }
 
-    final nextText = widget.value.toString();
+    if (widget.value != _lastValue) {
+      // Zmiana z zewnątrz (np. odrzucenie zmian) przywraca liczbę w polu.
+      if (_expectedInputValue != widget.value) {
+        _isEmptyInput = false;
+      }
+      _expectedInputValue = null;
+      _lastValue = widget.value;
+    }
+    final nextText = _isEmptyInput ? '' : widget.value.toString();
     if (_controller.text != nextText) {
       _controller.value = _controller.value.copyWith(
         text: nextText,
@@ -89,6 +105,15 @@ class _PricingFieldState extends State<PricingField> {
     }
   }
 
+  void _handleChanged(String text) {
+    final isEmpty = text.trim().isEmpty;
+    final value = int.tryParse(text) ?? 0;
+    _isEmptyInput = isEmpty;
+    _expectedInputValue = value;
+    widget.onChanged(value);
+    widget.onEmptyChanged?.call(isEmpty);
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
@@ -113,7 +138,7 @@ class _PricingFieldState extends State<PricingField> {
         textField: true,
         liveRegion: errorMessage != null,
         label: widget.semanticLabel ?? widget.label,
-        value: widget.value.toString(),
+        value: _isEmptyInput ? '' : widget.value.toString(),
         child: TextField(
           controller: _controller,
           focusNode: _focusNode,
@@ -124,7 +149,7 @@ class _PricingFieldState extends State<PricingField> {
             FilteringTextInputFormatter.digitsOnly,
             LengthLimitingTextInputFormatter(5),
           ],
-          onChanged: (text) => widget.onChanged(int.tryParse(text) ?? 0),
+          onChanged: _handleChanged,
           onTapOutside: (_) => FocusScope.of(context).unfocus(),
           style: const TextStyle(fontSize: 16),
           decoration: InputDecoration(

@@ -37,6 +37,9 @@ class _PricingScreenState extends State<PricingScreen> {
       field: FocusNode(debugLabel: 'pricing-$field'),
   };
   final GlobalKey _editorKey = GlobalKey(debugLabel: 'pricing-month-editor');
+  final Map<form_field.PricingField, bool> _fieldHadFocus = {
+    for (final field in form_field.PricingField.values) field: false,
+  };
 
   bool _monthsExpanded = false;
   bool _showSaved = false;
@@ -48,8 +51,8 @@ class _PricingScreenState extends State<PricingScreen> {
   @override
   void initState() {
     super.initState();
-    for (final node in _focusNodes.values) {
-      node.addListener(() => _onFieldFocused(node));
+    for (final entry in _focusNodes.entries) {
+      entry.value.addListener(() => _onFieldFocused(entry.key, entry.value));
     }
     widget.controller.addListener(_onControllerChanged);
     widget.controller.load();
@@ -75,7 +78,7 @@ class _PricingScreenState extends State<PricingScreen> {
     setState(() {});
   }
 
-  void _onFieldFocused(FocusNode node) {
+  void _onFieldFocused(form_field.PricingField field, FocusNode node) {
     final context = node.context;
     if (node.hasFocus && context != null) {
       Scrollable.ensureVisible(
@@ -84,6 +87,10 @@ class _PricingScreenState extends State<PricingScreen> {
         duration: const Duration(milliseconds: 150),
       );
     }
+    if (_fieldHadFocus[field] == true && !node.hasFocus) {
+      widget.controller.validateField(field);
+    }
+    _fieldHadFocus[field] = node.hasFocus;
   }
 
   String? _errorText(AppLocalizations l10n, PricingError? error) =>
@@ -115,12 +122,14 @@ class _PricingScreenState extends State<PricingScreen> {
       label: label,
       value: value,
       suffix: suffix,
-      errorText: _errorText(l10n, widget.controller.errors[field]),
+      errorText: _errorText(l10n, widget.controller.draftErrors[field]),
       focusNode: _focusNodes[field],
       enabled: enabled,
       textInputAction: textInputAction,
       semanticLabel: semanticLabel,
       onChanged: onChanged,
+      onEmptyChanged: (isEmpty) =>
+          widget.controller.setFieldEmpty(field, isEmpty),
     );
   }
 
@@ -313,7 +322,12 @@ class _PricingScreenState extends State<PricingScreen> {
     });
   }
 
-  void _toggleMonths() {
+  Future<void> _toggleMonths() async {
+    if (_monthsExpanded && widget.controller.isDirty) {
+      final discard = await _confirmDiscard();
+      if (!mounted || discard != true) return;
+      widget.controller.discardChanges();
+    }
     setState(() {
       if (_monthsExpanded) {
         _monthsExpanded = false;
@@ -594,7 +608,7 @@ class _PricingScreenState extends State<PricingScreen> {
                               enabled: ready,
                               errorText: _errorText(
                                 l10n,
-                                controller.errors[form_field
+                                controller.draftErrors[form_field
                                     .PricingField
                                     .minNights],
                               ),
@@ -603,7 +617,7 @@ class _PricingScreenState extends State<PricingScreen> {
                           ),
                           const SizedBox(height: 20),
                           OutlinedButton(
-                            onPressed: _toggleMonths,
+                            onPressed: () => unawaited(_toggleMonths()),
                             style: ButtonStyle(
                               minimumSize: WidgetStateProperty.all(
                                 const Size(0, 48),
@@ -663,10 +677,17 @@ class _PricingScreenState extends State<PricingScreen> {
                                   onChanged: (next) => _updateEntry(next),
                                   onDelete: () => controller
                                       .deleteMonthOverride(editing.month),
+                                  emptyFields: controller.emptyOverrideFields,
+                                  onFieldLeft: controller.validateOverrideField,
+                                  onPriceEmptyChanged: (field, isEmpty) =>
+                                      controller.setOverridePriceEmpty(
+                                        field,
+                                        isEmpty,
+                                      ),
                                 ),
                               ),
                             TextButton(
-                              onPressed: _toggleMonths,
+                              onPressed: () => unawaited(_toggleMonths()),
                               style: ButtonStyle(
                                 minimumSize: WidgetStateProperty.all(
                                   const Size(48, 48),

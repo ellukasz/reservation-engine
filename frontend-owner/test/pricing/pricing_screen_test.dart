@@ -6,6 +6,8 @@ import 'package:frontend_owner/pricing/model/in_memory_pricing_repository.dart';
 import 'package:frontend_owner/pricing/model/month_override.dart';
 import 'package:frontend_owner/pricing/model/portal.dart';
 import 'package:frontend_owner/pricing/model/pricing_draft.dart';
+import 'package:frontend_owner/pricing/model/pricing_error.dart';
+import 'package:frontend_owner/pricing/model/pricing_field.dart';
 import 'package:frontend_owner/pricing/model/save_result.dart';
 import 'package:frontend_owner/pricing/pricing_controller.dart';
 import 'package:frontend_owner/pricing/pricing_screen.dart';
@@ -672,5 +674,140 @@ void main() {
     );
     expect(constrained, findsWidgets);
     expect(tester.getSize(constrained.first).width, lessThanOrEqualTo(480));
+  });
+
+  testWidgets('invalid value is validated when the field loses focus', (
+    tester,
+  ) async {
+    final controller = _controller(tester: tester);
+    await _pumpScreen(tester, controller: controller);
+
+    await tester.enterText(find.byKey(const Key('weekdayPrice')), '0');
+    await tester.pumpAndSettle();
+    expect(find.text('Cena musi być większa od zera.'), findsNothing);
+
+    await tester.tap(find.byKey(const Key('weekendPrice')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Cena musi być większa od zera.'), findsOneWidget);
+    expect(controller.errors[PricingField.weekdayPrice], PricingError.positive);
+  });
+
+  testWidgets('moving between valid fields shows no errors', (tester) async {
+    final controller = _controller(tester: tester);
+    await _pumpScreen(tester, controller: controller);
+
+    await tester.enterText(find.byKey(const Key('weekdayPrice')), '400');
+    await _tap(tester, find.byKey(const Key('weekendPrice')));
+
+    expect(controller.errors, isEmpty);
+    expect(find.textContaining('Wpisz wartość.'), findsNothing);
+  });
+
+  testWidgets('cleared price shows required error and blocks save', (
+    tester,
+  ) async {
+    final controller = _controller(tester: tester);
+    await _pumpScreen(tester, controller: controller);
+
+    await tester.enterText(find.byKey(const Key('weekdayPrice')), '');
+    await tester.pumpAndSettle();
+
+    expect(find.text('Wpisz wartość.'), findsOneWidget);
+    expect(controller.errors[PricingField.weekdayPrice], PricingError.required);
+
+    await _tap(tester, find.text('Zapisz zmiany'));
+    expect(controller.isDirty, isTrue);
+
+    await tester.enterText(find.byKey(const Key('weekdayPrice')), '400');
+    await tester.pumpAndSettle();
+    expect(find.text('Wpisz wartość.'), findsNothing);
+  });
+
+  testWidgets('cleared markup shows required instead of silent zero', (
+    tester,
+  ) async {
+    final controller = _controller(tester: tester);
+    await _pumpScreen(tester, controller: controller);
+
+    await tester.enterText(find.byKey(const Key('bookingMarkup')), '');
+    await tester.pumpAndSettle();
+
+    expect(find.text('Wpisz wartość.'), findsOneWidget);
+    expect(
+      controller.errors[PricingField.bookingMarkup],
+      PricingError.required,
+    );
+
+    await _tap(tester, find.text('Zapisz zmiany'));
+    expect(controller.isDirty, isTrue);
+  });
+
+  testWidgets('month entry validates on focus loss and empty input', (
+    tester,
+  ) async {
+    final controller = _controller(tester: tester);
+    await _pumpScreen(tester, controller: controller);
+    await _tap(tester, find.text('Zmień ceny w miesiącach'));
+    await _tap(tester, find.text('Lipiec'));
+
+    final weekday = find
+        .descendant(
+          of: find.byType(MonthEntryEditor),
+          matching: find.byType(TextField),
+        )
+        .first;
+    final weekend = find
+        .descendant(
+          of: find.byType(MonthEntryEditor),
+          matching: find.byType(TextField),
+        )
+        .last;
+
+    await tester.enterText(weekday, '0');
+    await tester.pumpAndSettle();
+    await _tap(tester, weekend);
+
+    expect(controller.errors[PricingField.weekdayPrice], PricingError.positive);
+
+    await tester.enterText(weekday, '');
+    await tester.pumpAndSettle();
+    expect(find.text('Wpisz wartość.'), findsOneWidget);
+
+    await _tap(tester, find.text('Zapisz zmiany'));
+    expect(controller.isDirty, isTrue);
+  });
+
+  testWidgets('collapsing months with an edited entry asks before discarding', (
+    tester,
+  ) async {
+    final controller = _controller(tester: tester);
+    await _pumpScreen(tester, controller: controller);
+    await _tap(tester, find.text('Zmień ceny w miesiącach'));
+    await _tap(tester, find.text('Lipiec'));
+
+    final weekday = find
+        .descendant(
+          of: find.byType(MonthEntryEditor),
+          matching: find.byType(TextField),
+        )
+        .first;
+    await tester.enterText(weekday, '480');
+    await tester.pumpAndSettle();
+
+    await _tap(tester, find.text('Zwiń'));
+
+    expect(find.text('Masz niezapisane zmiany. Odrzucić?'), findsOneWidget);
+    await tester.tap(find.text('Zostań'));
+    await tester.pumpAndSettle();
+    expect(find.byType(MonthEntryEditor), findsOneWidget);
+    expect(controller.editingOverride?.weekdayPrice, 480);
+
+    await _tap(tester, find.text('Zwiń'));
+    await tester.tap(find.text('Odrzuć'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(MonthEntryEditor), findsNothing);
+    expect(controller.editingOverride, isNull);
   });
 }

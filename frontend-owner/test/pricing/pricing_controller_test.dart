@@ -320,6 +320,75 @@ void main() {
     expect(controller.isSaving, isFalse);
   });
 
+  test('validateField checks a field on focus loss without saving', () async {
+    final controller = PricingController(InMemoryPricingRepository());
+    await controller.load();
+
+    controller.updateWeekdayPrice(0);
+    expect(controller.errors, isEmpty);
+
+    controller.validateField(PricingField.weekdayPrice);
+    expect(controller.errors[PricingField.weekdayPrice], PricingError.positive);
+
+    controller.updateWeekdayPrice(400);
+    controller.validateField(PricingField.weekdayPrice);
+    expect(controller.errors, isEmpty);
+  });
+
+  test('empty draft field blocks save until it is filled', () async {
+    final controller = PricingController(InMemoryPricingRepository());
+    await controller.load();
+
+    controller
+      ..updateBookingMarkup(0)
+      ..setFieldEmpty(PricingField.bookingMarkup, true);
+
+    expect(
+      controller.errors[PricingField.bookingMarkup],
+      PricingError.required,
+    );
+    expect(await controller.save(), isFalse);
+
+    controller
+      ..updateBookingMarkup(16)
+      ..setFieldEmpty(PricingField.bookingMarkup, false);
+
+    expect(controller.errors[PricingField.bookingMarkup], isNull);
+    expect(await controller.save(), isTrue);
+  });
+
+  test(
+    'empty override price blocks save and validates on focus loss',
+    () async {
+      final controller = PricingController(InMemoryPricingRepository());
+      await controller.load();
+      controller.openMonth(7);
+
+      controller
+        ..updateOverridePrice(weekday: 0, weekend: 550)
+        ..validateOverrideField(PricingField.weekdayPrice);
+
+      expect(
+        controller.errors[PricingField.weekdayPrice],
+        PricingError.positive,
+      );
+
+      controller.setOverridePriceEmpty(PricingField.weekdayPrice, true);
+      expect(
+        controller.errors[PricingField.weekdayPrice],
+        PricingError.required,
+      );
+      expect(await controller.save(), isFalse);
+
+      controller
+        ..updateOverridePrice(weekday: 450, weekend: 550)
+        ..setOverridePriceEmpty(PricingField.weekdayPrice, false);
+
+      expect(controller.errors[PricingField.weekdayPrice], isNull);
+      expect(await controller.save(), isTrue);
+    },
+  );
+
   test('state changes notify listeners', () async {
     final controller = PricingController(InMemoryPricingRepository());
     var notifications = 0;

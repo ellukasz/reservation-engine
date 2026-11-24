@@ -14,13 +14,16 @@ import 'pricing_field.dart';
 /// Panel edycji jednego wpisu miesiąca.
 ///
 /// Nie ma własnego przycisku zapisu — zapisuje przyklejony pasek formularza.
-class MonthEntryEditor extends StatelessWidget {
+class MonthEntryEditor extends StatefulWidget {
   const MonthEntryEditor({
     required MonthOverride override,
     required this.baseDraft,
     required this.onChanged,
     required this.onDelete,
     required this.isNew,
+    this.emptyFields = const {},
+    this.onFieldLeft,
+    this.onPriceEmptyChanged,
     super.key,
   }) : monthOverride = override;
 
@@ -30,30 +33,87 @@ class MonthEntryEditor extends StatelessWidget {
   final VoidCallback onDelete;
   final bool isNew;
 
+  /// Puste ceny wpisu; pustej ceny nie wolno potraktować jako zera.
+  final Set<form_field.PricingField> emptyFields;
+
+  /// Wywoływane po opuszczeniu ceny wpisu.
+  final ValueChanged<form_field.PricingField>? onFieldLeft;
+
+  /// Wywoływane, gdy użytkownik wyczyści lub uzupełni cenę wpisu.
+  final void Function(form_field.PricingField field, bool isEmpty)?
+  onPriceEmptyChanged;
+
+  @override
+  State<MonthEntryEditor> createState() => _MonthEntryEditorState();
+}
+
+class _MonthEntryEditorState extends State<MonthEntryEditor> {
+  static const _weekday = form_field.PricingField.weekdayPrice;
+  static const _weekend = form_field.PricingField.weekendPrice;
+
+  final Map<form_field.PricingField, FocusNode> _focusNodes =
+      <form_field.PricingField, FocusNode>{
+        _weekday: FocusNode(debugLabel: 'entry-weekday-price'),
+        _weekend: FocusNode(debugLabel: 'entry-weekend-price'),
+      };
+  final Map<form_field.PricingField, bool> _hadFocus =
+      <form_field.PricingField, bool>{_weekday: false, _weekend: false};
+
+  @override
+  void initState() {
+    super.initState();
+    for (final entry in _focusNodes.entries) {
+      final field = entry.key;
+      final node = entry.value;
+      node.addListener(() {
+        final hadFocus = _hadFocus[field] ?? false;
+        if (hadFocus && !node.hasFocus) {
+          widget.onFieldLeft?.call(field);
+        }
+        _hadFocus[field] = node.hasFocus;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    for (final node in _focusNodes.values) {
+      node.dispose();
+    }
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = resolveAppLocalizations(context);
     final formatter = PricingFormatter(resolveLocale(context));
-    final errors = PricingValidator.validateOverride(monthOverride);
-    final inheritsMinimum = monthOverride.minimumNights == null;
+    final override = widget.monthOverride;
+    final errors = PricingValidator.validateOverride(
+      override,
+      emptyFields: widget.emptyFields,
+    );
+    final inheritsMinimum = override.minimumNights == null;
 
     String? errorText(form_field.PricingField field) {
       final error = errors[field];
       return switch (error) {
+        PricingError.required => l10n.pricingErrorRequired,
         PricingError.positive => l10n.pricingErrorPositive,
         PricingError.maxPrice => l10n.pricingErrorMaxPrice,
         _ => null,
       };
     }
 
-    final minimumLabel = l10n.pricingUseResortMinimum(baseDraft.minNights);
+    final minimumLabel = l10n.pricingUseResortMinimum(
+      widget.baseDraft.minNights,
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Text(
-          l10n.pricingEntryTitle(formatter.monthLong(monthOverride.month)),
+          l10n.pricingEntryTitle(formatter.monthLong(override.month)),
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 4),
@@ -61,20 +121,26 @@ class MonthEntryEditor extends StatelessWidget {
         const SizedBox(height: 20),
         PricingField(
           label: l10n.pricingWeekdayFieldLabel,
-          value: monthOverride.weekdayPrice,
+          value: override.weekdayPrice,
           suffix: l10n.pricingCurrencyUnit,
-          errorText: errorText(form_field.PricingField.weekdayPrice),
+          errorText: errorText(_weekday),
+          focusNode: _focusNodes[_weekday],
+          onEmptyChanged: (isEmpty) =>
+              widget.onPriceEmptyChanged?.call(_weekday, isEmpty),
           onChanged: (value) =>
-              onChanged(monthOverride.copyWith(weekdayPrice: value)),
+              widget.onChanged(override.copyWith(weekdayPrice: value)),
         ),
         const SizedBox(height: 16),
         PricingField(
           label: l10n.pricingWeekendFieldLabel,
-          value: monthOverride.weekendPrice,
+          value: override.weekendPrice,
           suffix: l10n.pricingCurrencyUnit,
-          errorText: errorText(form_field.PricingField.weekendPrice),
+          errorText: errorText(_weekend),
+          focusNode: _focusNodes[_weekend],
+          onEmptyChanged: (isEmpty) =>
+              widget.onPriceEmptyChanged?.call(_weekend, isEmpty),
           onChanged: (value) =>
-              onChanged(monthOverride.copyWith(weekendPrice: value)),
+              widget.onChanged(override.copyWith(weekendPrice: value)),
         ),
         const SizedBox(height: 20),
         Text(
@@ -86,21 +152,21 @@ class MonthEntryEditor extends StatelessWidget {
             contentPadding: EdgeInsets.zero,
             title: Text(minimumLabel),
             value: inheritsMinimum,
-            onChanged: (checked) => onChanged(
+            onChanged: (checked) => widget.onChanged(
               checked
-                  ? monthOverride.copyWith(clearMinimumNights: true)
-                  : monthOverride.copyWith(
+                  ? override.copyWith(clearMinimumNights: true)
+                  : override.copyWith(
                       minimumNights:
-                          monthOverride.minimumNights ?? baseDraft.minNights,
+                          override.minimumNights ?? widget.baseDraft.minNights,
                     ),
             ),
           ),
         ),
         if (!inheritsMinimum)
           NightStepper(
-            value: monthOverride.minimumNights ?? baseDraft.minNights,
+            value: override.minimumNights ?? widget.baseDraft.minNights,
             onChanged: (value) =>
-                onChanged(monthOverride.copyWith(minimumNights: value)),
+                widget.onChanged(override.copyWith(minimumNights: value)),
           ),
         const SizedBox(height: 16),
         TextButton(
@@ -128,7 +194,7 @@ class MonthEntryEditor extends StatelessWidget {
           header: true,
           child: Text(
             l10n.pricingDeleteConfirmTitle(
-              formatter.monthForOfPhrase(monthOverride.month),
+              formatter.monthForOfPhrase(widget.monthOverride.month),
             ),
           ),
         ),
@@ -149,7 +215,7 @@ class MonthEntryEditor extends StatelessWidget {
     );
 
     if (confirmed == true) {
-      onDelete();
+      widget.onDelete();
     }
   }
 }

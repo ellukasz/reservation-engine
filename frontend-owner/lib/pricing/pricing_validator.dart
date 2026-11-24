@@ -11,19 +11,49 @@ abstract final class PricingValidator {
   static const int _maxNights = 14;
 
   /// Zwraca błędy kluczowane polem; pusta mapa oznacza poprawny formularz.
-  static Map<PricingField, PricingError> validateDraft(PricingDraft draft) {
+  ///
+  /// Pola z [emptyFields] są wymagane i dostają błąd [PricingError.required]
+  /// z najwyższym priorytetem — puste pole nie może zostać uznane za zero.
+  static Map<PricingField, PricingError> validateDraft(
+    PricingDraft draft, {
+    Set<PricingField> emptyFields = const {},
+  }) {
     final errors = <PricingField, PricingError>{};
 
-    _validatePrice(errors, PricingField.weekdayPrice, draft.weekdayPrice);
-    _validatePrice(errors, PricingField.weekendPrice, draft.weekendPrice);
-    _validatePercent(errors, PricingField.bookingMarkup, draft.bookingMarkup);
-    _validatePercent(errors, PricingField.airbnbMarkup, draft.airbnbMarkup);
+    _validatePrice(
+      errors,
+      PricingField.weekdayPrice,
+      draft.weekdayPrice,
+      emptyFields,
+    );
+    _validatePrice(
+      errors,
+      PricingField.weekendPrice,
+      draft.weekendPrice,
+      emptyFields,
+    );
+    _validatePercent(
+      errors,
+      PricingField.bookingMarkup,
+      draft.bookingMarkup,
+      emptyFields,
+    );
+    _validatePercent(
+      errors,
+      PricingField.airbnbMarkup,
+      draft.airbnbMarkup,
+      emptyFields,
+    );
 
-    if (draft.depositPercent < _minDepositPercent ||
+    if (emptyFields.contains(PricingField.depositPercent)) {
+      errors[PricingField.depositPercent] = PricingError.required;
+    } else if (draft.depositPercent < _minDepositPercent ||
         draft.depositPercent > _maxPercent) {
       errors[PricingField.depositPercent] = PricingError.depositRange;
     }
-    if (draft.minNights < 1 || draft.minNights > _maxNights) {
+    if (emptyFields.contains(PricingField.minNights)) {
+      errors[PricingField.minNights] = PricingError.required;
+    } else if (draft.minNights < 1 || draft.minNights > _maxNights) {
       errors[PricingField.minNights] = PricingError.minNightsRange;
     }
 
@@ -31,13 +61,26 @@ abstract final class PricingValidator {
   }
 
   /// Sprawdza ceny wpisu miesięcznego; dziedziczone minimum jest poprawne.
+  ///
+  /// Puste ceny wpisu są zgłaszane jako [PricingError.required].
   static Map<PricingField, PricingError> validateOverride(
-    MonthOverride override,
-  ) {
+    MonthOverride override, {
+    Set<PricingField> emptyFields = const {},
+  }) {
     final errors = <PricingField, PricingError>{};
 
-    _validatePrice(errors, PricingField.weekdayPrice, override.weekdayPrice);
-    _validatePrice(errors, PricingField.weekendPrice, override.weekendPrice);
+    _validatePrice(
+      errors,
+      PricingField.weekdayPrice,
+      override.weekdayPrice,
+      emptyFields,
+    );
+    _validatePrice(
+      errors,
+      PricingField.weekendPrice,
+      override.weekendPrice,
+      emptyFields,
+    );
 
     return errors;
   }
@@ -46,8 +89,11 @@ abstract final class PricingValidator {
     Map<PricingField, PricingError> errors,
     PricingField field,
     int price,
+    Set<PricingField> emptyFields,
   ) {
-    if (price <= 0) {
+    if (emptyFields.contains(field)) {
+      errors[field] = PricingError.required;
+    } else if (price <= 0) {
       errors[field] = PricingError.positive;
     } else if (price > _maxPrice) {
       errors[field] = PricingError.maxPrice;
@@ -58,8 +104,11 @@ abstract final class PricingValidator {
     Map<PricingField, PricingError> errors,
     PricingField field,
     int percent,
+    Set<PricingField> emptyFields,
   ) {
-    if (percent < 0 || percent > _maxPercent) {
+    if (emptyFields.contains(field)) {
+      errors[field] = PricingError.required;
+    } else if (percent < 0 || percent > _maxPercent) {
       errors[field] = PricingError.percentRange;
     }
   }

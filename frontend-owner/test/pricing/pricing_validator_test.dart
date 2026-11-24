@@ -47,6 +47,36 @@ void main() {
     );
   });
 
+  test('empty draft fields report required with highest priority', () {
+    final errors = PricingValidator.validateDraft(
+      PricingDraft.initial().copyWith(weekdayPrice: 0, bookingMarkup: 0),
+      emptyFields: const {
+        PricingField.weekdayPrice,
+        PricingField.bookingMarkup,
+      },
+    );
+
+    expect(errors[PricingField.weekdayPrice], PricingError.required);
+    expect(errors[PricingField.bookingMarkup], PricingError.required);
+    expect(errors[PricingField.depositPercent], isNull);
+  });
+
+  test('empty override price reports required', () {
+    const override = MonthOverride(
+      month: 7,
+      weekdayPrice: 0,
+      weekendPrice: 550,
+    );
+
+    expect(
+      PricingValidator.validateOverride(
+        override,
+        emptyFields: const {PricingField.weekdayPrice},
+      ),
+      containsPair(PricingField.weekdayPrice, PricingError.required),
+    );
+  });
+
   test('override inherits minimum when minimumNights is null', () {
     const override = MonthOverride(
       month: 7,
